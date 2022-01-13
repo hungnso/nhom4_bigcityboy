@@ -1,8 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import GroupForm from "./GroupForm";
-
+import LoginSocial from "./LoginSocial";
 function App() {
-  return <GroupForm />;
+  return <LoginSocial />;
 }
 
 export default App;
