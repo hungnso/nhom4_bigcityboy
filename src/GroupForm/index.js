@@ -3,11 +3,14 @@ import { Container, Row, Col, Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InputForm from "../components/InputForm";
 import ModalForm from "../components/ModalForm";
+
 import { useHistory } from "react-router-dom";
+import Mapbox from "../MapAddAddress/mapbox";
 
 function GroupForm() {
   const history = useHistory();
   const [show, setShow] = useState(false);
+  const [shows, setShows] = useState(false);
 
   const handleCLick = (e) => {
     e.preventDefault();
@@ -34,9 +37,20 @@ function GroupForm() {
               </div>
 
               <div className="login_btn_wrapper" style={{ textAlign: "left" }}>
-                <a href="#" className="btn btn-primary">
+                <a
+                  href="#"
+                  className="btn btn-primary"
+                  onClick={() => setShows(true)}
+                >
                   Thêm địa điểm
                 </a>
+                <ModalForm
+                  show={shows}
+                  onHide={() => setShows(false)}
+                  ModalTile={""}
+                  ModalChildren={<Mapbox />}
+                  size="xl"
+                />
               </div>
 
               <div className="address_vote">
@@ -46,13 +60,13 @@ function GroupForm() {
                 <ModalForm
                   show={show}
                   onHide={() => setShow(false)}
-                  ModalTile={""}
-                  ModalChildren={""}
-                  size={"lg"}
+                  ModalTile={"số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội"}
+                  ModalChildren={<Mapbox />}
+                  size="xl"
                 />
               </div>
 
-              <div className="login_btn_wrapper">
+              <div className="login_btn_wrapper" style={{ marginTop: "20px" }}>
                 <button
                   type="submit"
                   onClick={(e) => handleCLick(e)}

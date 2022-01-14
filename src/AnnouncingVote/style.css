@@ -3,11 +3,19 @@
     width: 40vw;
     height: 70vh;
     border: solid 1px #000;
-    margin:auto;
-    margin-top:15vh;
+    margin:auto; 
     border-radius:5vh;
     box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+
 }
+.announcing_form{
+    background-color: rgb(70, 23, 143);
+    height: 100vh;
+    width: 100vw;
+    padding-top: 15vh;
+    position: relative;
+  }
 .quantilyVote{
     
     border-radius:50%;
@@ -15,7 +23,7 @@
     height: 20px;
     position: absolute;
     right:10px;
-    background-color: rgb(251, 255, 32);
+    background-color: rgb(81, 81, 70,0.2);
     font-size:15px;
 }
 .titleVote{
@@ -33,6 +41,8 @@
     font-size:20px;
 }
 .listResultVote{
+    box-shadow: 0px 0px 10px 5px rgba(84, 49, 144, 0.2);
+    /* background-color: #8BD8BD; */
     border: solid 1px #000;
     width: 65%;
     margin:auto;
@@ -59,7 +69,7 @@
         height: 70vh;
         border: solid 1px #000;
         margin:auto;
-        margin-top:15vh;
+   
         border-radius:5vh;
         box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
     }
@@ -114,7 +124,7 @@
         height: 78vh;
         border: solid 1px #000;
         margin:auto;
-        margin-top:10vh;
+    
         border-radius:5vh;
         box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
     }
@@ -149,7 +159,7 @@
         margin:auto;
         min-height: 50%;
         height:auto;
-    
+        
     }
     .btnView{
         margin-top:10px;
@@ -171,7 +181,7 @@
         height: 70vh;
         border: solid 1px #000;
         margin:auto;
-        margin-top:10vh;
+  
         border-radius:5vh;
         box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
     }
@@ -227,7 +237,7 @@
         height: 70vh;
         border: solid 1px #000;
         margin:auto;
-        margin-top:10vh;
+     
         border-radius:5vh;
         box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
     }

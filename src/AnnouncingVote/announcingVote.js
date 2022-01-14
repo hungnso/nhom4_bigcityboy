@@ -3,8 +3,10 @@ import "./style.css"
 import { Button } from 'react-bootstrap';
 export default function AnnouncingVote() {
     return (
-        <div >
-            <div className="announcing" >
+        <div className="announcing_form">
+            <div className="krqetT"></div>
+            <div className="ifKAln"></div>
+            <div className="announcing " >
                 <div>
                     <h2 className="titleVote">Địa Điểm Được Vote Nhiều Nhất</h2>
                 </div>
