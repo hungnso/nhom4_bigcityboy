@@ -1,14 +1,40 @@
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import InputForm from "../components/InputForm";
+import { AuthContext } from "../Context/AuthProvider";
+import { auth } from "../firebase/config";
+import { addDocument } from "../firebase/services";
 
 export default function LoginForm() {
+  const history = useHistory();
+  const handleCLick = (e) => {
+    e.preventDefault();
+    history.push("/create");
+  };
+  const {
+    user: { displayName, uid },
+  } = useContext(AuthContext);
+
+  addDocument("user_location", {
+    latitude: "566666",
+    longtudue: "66666",
+  });
+
   return (
     <div className="login_form">
       <div className="krqetT"></div>
       <div className="ifKAln"></div>
       <Container>
-        <h1 style={{ color: "white", textTransform: "uppercase" }}>
-          Chào mừng bạn đến với App Cùng Đi Chơi
+        <h1
+          style={{
+            color: "white",
+            textTransform: "uppercase",
+            textAlign: "center",
+          }}
+        >
+          Chào mừng {displayName} đến với App Cùng Đi Chơi
         </h1>
         <Row>
           <Col lg={3}></Col>
@@ -26,9 +52,13 @@ export default function LoginForm() {
               </div>
 
               <div className="login_btn_wrapper">
-                <a href="#" className="btn btn-primary login_btn">
+                <button
+                  type="submit"
+                  onClick={(e) => handleCLick(e)}
+                  className="btn btn-primary login_btn"
+                >
                   Submit
-                </a>
+                </button>
               </div>
             </div>
           </Col>
