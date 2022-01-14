@@ -47,7 +47,7 @@ function GroupForm() {
                   show={show}
                   onHide={() => setShow(false)}
                   ModalTile={""}
-                  ModalChildren={"map"}
+                  ModalChildren={""}
                   size={"lg"}
                 />
               </div>

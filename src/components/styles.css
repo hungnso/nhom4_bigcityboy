@@ -20,3 +20,31 @@
     background-color: fafafa;
     border: 1px solid #4285f4 !important;
   }
+  .text_p {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+  .coppy_input{
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+  }
+  .btn_coppy{
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    height: 56px;
+    padding: 0 13px;
+  }
+  .img_coppy {
+    width: 30px;
+    height: 30px;
+  }
+  .btn_coppy:hover{
+    background-color: #ddd;
+    border-radius: 50%;
+  }
