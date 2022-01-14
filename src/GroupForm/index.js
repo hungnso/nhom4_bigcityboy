@@ -3,9 +3,16 @@ import { Container, Row, Col, Button } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import InputForm from "../components/InputForm";
 import ModalForm from "../components/ModalForm";
+import { useHistory } from "react-router-dom";
 
 function GroupForm() {
+  const history = useHistory();
   const [show, setShow] = useState(false);
+
+  const handleCLick = (e) => {
+    e.preventDefault();
+    history.push("/room-vote");
+  };
   return (
     <div className="login_form">
       <div className="krqetT"></div>
@@ -46,9 +53,13 @@ function GroupForm() {
               </div>
 
               <div className="login_btn_wrapper">
-                <a href="#" className="btn btn-primary login_btn">
-                  Create Group
-                </a>
+                <button
+                  type="submit"
+                  onClick={(e) => handleCLick(e)}
+                  className="btn btn-primary login_btn"
+                >
+                  CREATE GROUP
+                </button>
               </div>
             </div>
           </Col>
