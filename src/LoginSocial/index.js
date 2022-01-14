@@ -1,7 +1,25 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
+import firebase, { auth } from "../firebase/config";
+import { addDocument } from "../firebase/services";
+
+const fbProvider = new firebase.auth.FacebookAuthProvider();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 function LoginSocial() {
+  const handleLogin = async (provider) => {
+    const { additionalUserInfo, user } = await auth.signInWithPopup(provider);
+    if (additionalUserInfo?.isNewUser && user) {
+      addDocument("users", {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        providerId: additionalUserInfo.providerId,
+      });
+    }
+  };
+
   return (
     <div className="login_form">
       <div className="krqetT"></div>
@@ -22,15 +40,20 @@ function LoginSocial() {
             <div className="login_wrapper">
               <Row className="form_row">
                 <Col>
-                  <a href="#" className="btn btn-primary facebook">
-                    <span>Login with Facebook</span>
-                    <i className="fa fa-facebook"></i>{" "}
-                  </a>
+                  <button
+                    onClick={() => handleLogin(fbProvider)}
+                    className="btn btn-primary facebook"
+                  >
+                    Login with Facebook
+                  </button>
                 </Col>
                 <Col>
-                  <a href="#" className="btn btn-primary google-plus">
-                    Login with Google <i className="fa fa-google-plus"></i>
-                  </a>
+                  <button
+                    onClick={() => handleLogin(googleProvider)}
+                    className="btn btn-primary google-plus"
+                  >
+                    Login with Google
+                  </button>
                 </Col>
               </Row>
             </div>
