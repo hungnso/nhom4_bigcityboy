@@ -27,7 +27,7 @@ export default function AnnouncingVote() {
                         <h4 className="nameVote">Trường Đại Học Công Nghiệp Hà Nội Cơ Sở 3 Phủ lý Hà Nam</h4> <h5 className="quantilyVote">5</h5>
                     </div>
                 </div>
-                <div> 
+                <div style={{width:"100% ", textAlign:"center"}}> 
                     <button className="btnView">Xem Đường Đi</button>
                 </div>
             </div>

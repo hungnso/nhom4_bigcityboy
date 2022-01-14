@@ -24,10 +24,12 @@
     right:10px;
     background-color: rgb(81, 81, 70,0.2);
     font-size:15px;
+    text-align: center;
 }
 .titleVote{
     font-size:35px;
     margin:15px 10px;
+    text-align: center;
 }
 .vote{
   display: flex;
@@ -50,7 +52,7 @@
 
 }
 .btnView{
-    margin-top:15px;
+    margin-top: 15px;
     height:50px;
     width: 200px;
     font-size:25px;
@@ -58,7 +60,7 @@
     color:#fff;
     border: none;
     border-radius:15px;
-    
+    margin: 15px auto;
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
@@ -82,7 +84,7 @@
         height: 15px;
         position: absolute;
         right:10px;
-        background-color: rgb(251, 255, 32);
+        background-color: rgb(81, 81, 70,0.2);
         font-size: 10px;
     }
     .vote{
@@ -138,7 +140,7 @@
         height: 15px;
         position: absolute;
         right:10px;
-        background-color: rgb(251, 255, 32);
+        background-color: rgb(81, 81, 70,0.2);
         font-size: 10px;
     }
     .vote{
@@ -195,7 +197,7 @@
         height: 20px;
         position: absolute;
         right:10px;
-        background-color: rgb(251, 255, 32);
+        background-color: rgb(81, 81, 70,0.2);
         font-size: 12px;
     }
     .vote{
@@ -251,14 +253,15 @@
         height: 20px;
         position: absolute;
         right:10px;
-        background-color: rgb(251, 255, 32);
+        background-color: rgb(81, 81, 70,0.2);
         font-size: 12px;
+        
     }
     .vote{
       display: flex;
       position: relative;
       margin: 10px 5px;
-      
+     
     }
     .nameVote{
         margin-left:15px;
@@ -274,7 +277,7 @@
     
     }
     .btnView{
-        margin-top:10px;
+        margin-top:15px;
         height:35px;
         width: 180px;
         font-size:16px;
@@ -282,10 +285,64 @@
         color:#fff;
         border: none;
         border-radius:15px;
+        margin:15px auto;
     }
 }
 
 /* Extra large devices (large desktops, 1200px and up)*/
 @media (min-width: 1200px) {
-	
+    .announcing{
+        width: 50vw;
+        height: 70vh;
+        border: solid 1px #000;
+        margin:auto;
+     
+        border-radius:5vh;
+        box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
+    }
+    .titleVote{
+        font-size:30px;
+        margin:15px 15px;
+    }
+    .quantilyVote{
+    
+        border-radius:50%;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right:10px;
+        background-color: rgb(81, 81, 70,0.2);
+        font-size: 13px;
+        
+    }
+    .vote{
+      display: flex;
+      position: relative;
+      margin: 10px 5px;
+     
+    }
+    .nameVote{
+        margin-left:15px;
+        margin-right:40px;
+        font-size:20px;
+    }
+    .listResultVote{
+        border: solid 1px #000;
+        width: 65%;
+        margin:auto;
+        min-height: 50%;
+        height:auto;
+    
+    }
+    .btnView{
+        margin-top:15px;
+        height:40px;
+        width: 190px;
+        font-size:18px;
+        background-color: rgba(70,23,143,1);
+        color:#fff;
+        border: none;
+        border-radius:15px;
+        margin:15px auto;
+    }
 }

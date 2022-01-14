@@ -6,6 +6,7 @@ import GroupForm from "./GroupForm";
 import LoginForm from "./LoginForm";
 import LoginSocial from "./LoginSocial";
 import HomeSidebar from "./HomeSidebar";
+import AnnouncingVote from "./AnnouncingVote/announcingVote";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route component={LoginForm} path="/" exact />
           <Route component={GroupForm} path="/create" />
           <Route component={HomeSidebar} path={"/room-vote"} />
+          <Route component={AnnouncingVote} path={"/announcingVote"} />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

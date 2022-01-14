@@ -1,8 +1,18 @@
-import React from 'react';
+import React ,{ useState } from 'react';
 import { Button } from 'react-bootstrap';
 import './homeSidebar.css'
-
+import { useHistory } from "react-router-dom";
+import ModalForm from "../components/ModalForm";
+import PopupForm from "../components/PopupForm";
 const HomeSidebar = () => {
+    const history = useHistory();
+    const [show, setShow] = useState(false);
+
+
+    const handleCLick = (e) => {
+        e.preventDefault();
+        history.push("/announcingVote");
+      };
     return (
         <div className="home">
             <div className="home-sidebar">
@@ -29,11 +39,25 @@ const HomeSidebar = () => {
                         <h4 className="nameVote">Công Viên Thủ Lệ</h4> <h5 className="quantilyVote">5</h5>
                     </div>
                 </div>
-                <div className="home-sidebar-location">
+                {/* <div className="home-sidebar-location">
                     
-                </div>
+                </div> */}
+                
+                    <div className="btnEndVote">
+                    <button style={{width:"95%"}} onClick={() => setShow(true)}>
+                      Địa Chỉ
+                    </button>
+                    <ModalForm
+                      show={show}
+                      onHide={() => setShow(false)}
+                      ModalTile={""}
+                      ModalChildren={<PopupForm value={window.location.href}/>}
+                      size= "md"
+                    /> 
+                    </div>
                 <div className="btnEndVote">
-                    <button type="submit">END VOTE</button>
+                    <button type="submit" 
+                  onClick={(e) => handleCLick(e)}>END VOTE</button>
                 </div>
             </div>  
         </div>

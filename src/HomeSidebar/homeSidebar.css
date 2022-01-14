@@ -1,5 +1,5 @@
 .home {
-    background-color: #8AAAE5;
+    background-color: rgba(70,23,143,1);
     width: 100%;
     height: 100vh;
     /* padding-top: 20px; */
@@ -8,7 +8,7 @@
 .home-sidebar {
     width: 100%;
     height: 100%;
-    background-color: #8AAAE5;
+    background-color: rgba(70,23,143,1);
 }
 .home-sidebar-title, .home-sidebar-content {
     background-color: #fff;
@@ -24,7 +24,7 @@
     padding-top: 10px;
 }
 .home-sidebar-members, .home-sidebar-location {
-    background-color: #8BD8BD;
+    background-color: #FFFFFF;
     border-radius: 8px;
     width: 95%;
     min-height: 200px;

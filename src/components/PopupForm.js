@@ -2,6 +2,14 @@ import React from "react";
 import InputForm from "./InputForm";
 
 function PopupForm({ value }) {
+  const copy =() => {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  }
   return (
     <div className="text-center">
       <h2>Chia sẻ cuộc vote mới của bạn</h2>
@@ -10,8 +18,8 @@ function PopupForm({ value }) {
         cùng. Đừng quên lưu lại để có thể sử dụng sau.
       </p>
       <div className="coppy_input">
-        <InputForm type="text" value={value} disabled="disabled" />
-        <button className="btn_coppy">
+        <InputForm type="text"  value={value} disabled="disabled" />
+        <button onClick={copy} className="btn_coppy">
           <img
             src="https://cdn-icons-png.flaticon.com/512/60/60990.png"
             className="img_coppy"
