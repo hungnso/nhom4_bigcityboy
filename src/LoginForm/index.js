@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import InputForm from "../components/InputForm";
 import { AuthContext } from "../Context/AuthProvider";
 import { auth } from "../firebase/config";
+import { addDocument } from "../firebase/services";
 
 export default function LoginForm() {
   const history = useHistory();
@@ -13,8 +14,13 @@ export default function LoginForm() {
     history.push("/create");
   };
   const {
-    user: { displayName },
+    user: { displayName, uid },
   } = useContext(AuthContext);
+
+  addDocument("user_location", {
+    latitude: "566666",
+    longtudue: "66666",
+  });
 
   return (
     <div className="login_form">
