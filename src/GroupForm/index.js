@@ -64,7 +64,7 @@ function GroupForm() {
                 />
               </div>
 
-              <div className="login_btn_wrapper">
+              <div className="login_btn_wrapper" style={{marginTop:"20px"}}>
                 <button
                   type="submit"
                   onClick={(e) => handleCLick(e)}
