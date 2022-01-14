@@ -12,7 +12,6 @@ function GroupForm() {
   const [show, setShow] = useState(false);
   const [shows, setShows] = useState(false);
 
-
   const handleCLick = (e) => {
     e.preventDefault();
     history.push("/room-vote");
@@ -38,17 +37,20 @@ function GroupForm() {
               </div>
 
               <div className="login_btn_wrapper" style={{ textAlign: "left" }}>
-                <a href="#" className="btn btn-primary" onClick={() => setShows(true)}>
+                <a
+                  href="#"
+                  className="btn btn-primary"
+                  onClick={() => setShows(true)}
+                >
                   Thêm địa điểm
                 </a>
                 <ModalForm
                   show={shows}
                   onHide={() => setShows(false)}
                   ModalTile={""}
-                  ModalChildren={<Mapbox/>}
-                  size= "xl"
+                  ModalChildren={<Mapbox />}
+                  size="xl"
                 />
-                
               </div>
 
               <div className="address_vote">
@@ -59,12 +61,12 @@ function GroupForm() {
                   show={show}
                   onHide={() => setShow(false)}
                   ModalTile={"số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội"}
-                  ModalChildren={<Mapbox/>}
-                  size= "xl"
+                  ModalChildren={<Mapbox />}
+                  size="xl"
                 />
               </div>
 
-              <div className="login_btn_wrapper" style={{marginTop:"20px"}}>
+              <div className="login_btn_wrapper" style={{ marginTop: "20px" }}>
                 <button
                   type="submit"
                   onClick={(e) => handleCLick(e)}

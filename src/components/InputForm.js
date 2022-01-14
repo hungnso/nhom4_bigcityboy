@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-const InputForm = ({ type, id, placeholder, value }) => {
+const InputForm = ({ type, id, placeholder, value, disabled }) => {
   return (
     <div>
       <input
@@ -10,6 +10,7 @@ const InputForm = ({ type, id, placeholder, value }) => {
         id={id}
         placeholder={placeholder}
         value={value}
+        disabled={disabled}
       />
     </div>
   );
