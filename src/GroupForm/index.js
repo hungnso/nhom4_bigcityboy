@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import InputForm from "../components/InputForm";
-import ModalForm from "../components/ModalForm";
+import React, { useState } from 'react'
+import { Container, Row, Col, Button } from 'reactstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import InputForm from '../components/InputForm'
+import ModalForm from '../components/ModalForm'
 
-import { useHistory } from "react-router-dom";
-import Mapbox from "../MapAddAddress/mapbox";
+import { useNavigate } from 'react-router-dom'
+import Mapbox from '../MapAddAddress/mapbox'
 
 function GroupForm() {
-  const history = useHistory();
-  const [show, setShow] = useState(false);
-  const [shows, setShows] = useState(false);
+  const navigate = useNavigate()
+  const [show, setShow] = useState(false)
+  const [shows, setShows] = useState(false)
 
-  const handleCLick = (e) => {
-    e.preventDefault();
-    history.push("/room-vote");
-  };
+  const handleCLick = e => {
+    e.preventDefault()
+    navigate('/room-vote')
+  }
   return (
     <div className="login_form">
       <div className="krqetT"></div>
@@ -36,42 +36,32 @@ function GroupForm() {
                 </div>
               </div>
 
-              <div className="login_btn_wrapper" style={{ textAlign: "left" }}>
-                <a
-                  href="#"
-                  className="btn btn-primary"
-                  onClick={() => setShows(true)}
-                >
+              <div className="login_btn_wrapper" style={{ textAlign: 'left' }}>
+                <a href="#" className="btn btn-primary" onClick={() => setShows(true)}>
                   Thêm địa điểm
                 </a>
                 <ModalForm
                   show={shows}
                   onHide={() => setShows(false)}
-                  ModalTile={""}
+                  ModalTile={''}
                   ModalChildren={<Mapbox />}
                   size="xl"
                 />
               </div>
 
               <div className="address_vote">
-                <Button onClick={() => setShow(true)}>
-                  số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội
-                </Button>
+                <Button onClick={() => setShow(true)}>số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội</Button>
                 <ModalForm
                   show={show}
                   onHide={() => setShow(false)}
-                  ModalTile={"số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội"}
+                  ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
                   ModalChildren={<Mapbox />}
                   size="xl"
                 />
               </div>
 
-              <div className="login_btn_wrapper" style={{ marginTop: "20px" }}>
-                <button
-                  type="submit"
-                  onClick={(e) => handleCLick(e)}
-                  className="btn btn-primary login_btn"
-                >
+              <div className="login_btn_wrapper" style={{ marginTop: '20px' }}>
+                <button type="submit" onClick={e => handleCLick(e)} className="btn btn-primary login_btn">
                   CREATE GROUP
                 </button>
               </div>
@@ -81,7 +71,7 @@ function GroupForm() {
         </Row>
       </Container>
     </div>
-  );
+  )
 }
 
-export default GroupForm;
+export default GroupForm
