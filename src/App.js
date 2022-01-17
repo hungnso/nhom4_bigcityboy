@@ -7,6 +7,7 @@ import LoginForm from './LoginForm'
 import LoginSocial from './LoginSocial'
 import HomeSidebar from './HomeSidebar'
 import AnnouncingVote from './AnnouncingVote/announcingVote'
+import Home from './home'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route element={<GroupForm />} path="create/*" />
           <Route element={<HomeSidebar />} path={'room-vote'} />
           <Route element={<AnnouncingVote />} path={'announcingVote'} />
+          <Route element={<Home />} path={'home'} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
