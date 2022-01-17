@@ -1,23 +1,20 @@
 import React, { useState } from 'react'
 import './styles.css'
 
-const InputForm = ({ type, id, placeholder, disabled }) => {
-  const [title, setTitle] = useState('')
-  const handleChangeTitle = e => {
-    e.preventDefault()
-    setTitle(e.target.value)
-    console.log(title)
-  }
+const InputForm = ({ type, id, placeholder, value, disabled, name, onChange, onBlur, onFocus }) => {
   return (
     <div>
       <input
-        onChange={e => handleChangeTitle(e)}
         type={type}
         className="form-control"
         id={id}
         placeholder={placeholder}
-        value={title}
+        value={value}
         disabled={disabled}
+        name={name}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
       />
     </div>
   )

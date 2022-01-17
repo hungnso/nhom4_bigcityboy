@@ -16,16 +16,22 @@
     margin-top: 30px;
   }
   
-  .login_wrapper a.btn {
-    color: #fff;
+  .login_wrapper a.btn, .login_btn {
+    color: rgb(70, 23, 143);
     height: 50px;
     padding: 6px 25px;
     line-height: 36px;
     border-radius: 5px;
-    background: #4385f5;
+    background: #fff;
     font-size: 16px;
-    border: 1px solid #4385f5;
+    border: 1px solid rgb(70, 23, 143);
     text-decoration: none;
+    outline: none;
+  }
+
+  .login_btn_wrapper a.btn:hover, .login_btn:hover {
+    color: #fff;
+    background: rgb(70, 23, 143);
   }
   
   .login_wrapper a.google-plus {
@@ -60,6 +66,8 @@
   
   .login_btn_wrapper {
     padding-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
   }
   
   .login_btn_wrapper a.login_btn {
@@ -89,4 +97,40 @@
     min-height: 50vmin;
     bottom: -15vmin;
     right: -15vmin;
+  }
+  .msg_err {
+    color: #d41a1a;
+  font-size: 12px;
+  margin: 4px 0 8px 0;
+  }
+  button.btn_address {
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    padding: 6px 25px;
+    line-height: 36px;
+    border-radius: 5px;
+    background: rgb(70, 23, 143);
+    font-size: 16px;
+    border: 1px solid rgb(70, 23, 143);
+    text-decoration: none;
+    outline: none;
+  }
+  .facebook, .google{
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 10px;
+    line-height: 30px;
+  }
+  .facebook {
+    background-color: #30a1e7;
+  }
+  .google{
+    background-color: #cf4332;
+  }
+  .icon_social{
+    width: 30px;
+    height: auto;
+    margin-right: 20px;
   }
