@@ -8,11 +8,29 @@ import { useNavigate } from 'react-router-dom'
 import Mapbox from '../MapAddAddress/mapbox'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { db } from '../firebase/config'
+import { AuthContext } from '../Context/AuthProvider'
+import useFirestore from '../hooks/useFirestore'
+import { AppContext } from '../Context/AppProvider'
 
 function GroupForm() {
+  const { user } = React.useContext(AuthContext)
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
+
+  // const roomsCondition = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'members',
+  //     operator: 'array-contains',
+  //     compareValue: user.uid
+  //   }
+  // }, [user.uid])
+
+  // const rooms = useFirestore('rooms', roomsCondition)
+  // console.log(rooms)
+  const { rooms } = React.useContext(AppContext)
+  console.log(rooms)
 
   const handleCLick = e => {
     e.preventDefault()

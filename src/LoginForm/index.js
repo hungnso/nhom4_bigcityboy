@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { Container, Row, Col, Button } from 'reactstrap'
 import InputForm from '../components/InputForm'
 import { AuthContext } from '../Context/AuthProvider'
-import { auth } from '../firebase/config'
+import { auth, db } from '../firebase/config'
 import { addDocument } from '../firebase/services'
 import Mapbox from '../MapAddAddress/mapbox'
 import ModalForm from '../components/ModalForm'
@@ -13,6 +13,16 @@ import * as Yup from 'yup'
 
 export default function LoginForm() {
   let navigate = useNavigate()
+
+  // React.useEffect(() => {
+  //   db.collection('users').onSnapshot(snapshot => {
+  //     const data = snapshot.docs.map(doc => ({
+  //       ...doc.data(),
+  //       id: doc.id
+  //     }))
+  //     console.log({ data, snapshot, docs: snapshot.docs })
+  //   })
+  // }, [])
 
   const [show, setShow] = useState(false)
 
