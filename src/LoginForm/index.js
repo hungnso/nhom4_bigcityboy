@@ -22,11 +22,6 @@ export default function LoginForm() {
     user: { displayName, uid }
   } = useContext(AuthContext)
 
-  addDocument('user_location', {
-    latitude: '566666',
-    longtudue: '66666'
-  })
-
   return (
     <div className="login_form">
       <div className="krqetT"></div>
