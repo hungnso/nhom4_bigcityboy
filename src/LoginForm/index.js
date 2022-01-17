@@ -62,6 +62,7 @@ export default function LoginForm() {
                       ModalTile={""}
                       ModalChildren={<Mapbox/>}
                       size= "xl"
+                     
                     />
                   </div>
                 </div>
