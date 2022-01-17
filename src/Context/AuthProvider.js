@@ -20,13 +20,13 @@ export default function AuthProvider({ children }) {
           uid,
           photoURL
         })
-        navigate('/')
+        // navigate('/')
         return
       }
 
       // reset user info
       setUser({})
-      navigate('/login')
+      // navigate('/login')
     })
 
     // clean function
