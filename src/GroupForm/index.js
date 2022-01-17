@@ -6,15 +6,33 @@ import ModalForm from '../components/ModalForm'
 
 import { useNavigate } from 'react-router-dom'
 import Mapbox from '../MapAddAddress/mapbox'
+import { db } from '../firebase/config'
+import { AuthContext } from '../Context/AuthProvider'
+import useFirestore from '../hooks/useFirestore'
+import { AppContext } from '../Context/AppProvider'
 
 function GroupForm() {
+  const { user } = React.useContext(AuthContext)
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
 
+  // const roomsCondition = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'members',
+  //     operator: 'array-contains',
+  //     compareValue: user.uid
+  //   }
+  // }, [user.uid])
+
+  // const rooms = useFirestore('rooms', roomsCondition)
+  // console.log(rooms)
+  const { rooms } = React.useContext(AppContext)
+  console.log(rooms)
+
   const handleCLick = e => {
     e.preventDefault()
-    navigate('/room-vote')
+    // navigate('/room-vote')
   }
   return (
     <div className="login_form">
@@ -24,7 +42,7 @@ function GroupForm() {
         <Row>
           <Col md={2}></Col>
           <Col md={8}>
-            <div className="login_wrapper">
+            <form className="login_wrapper">
               <div className="formsix-pos">
                 <div className="form-group i-email">
                   <InputForm type="text" id="Text1" placeholder="Tiêu đề *" />
@@ -65,7 +83,7 @@ function GroupForm() {
                   CREATE GROUP
                 </button>
               </div>
-            </div>
+            </form>
           </Col>
           <Col md={2}></Col>
         </Row>
