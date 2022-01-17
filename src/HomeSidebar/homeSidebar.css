@@ -5,11 +5,66 @@
     /* padding-top: 20px; */
     overflow-y: scroll;
 }
+/* .go-back {
+    cursor: pointer;
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 95%;
+    height: 30px;
+    padding: 10px;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 70px;
+    margin-top: 25px;
+} */
+
+.go-back {
+    border-radius: 8px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 25px;
+    padding: 20px;
+    width: 50%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.go-back span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+    font-weight: bold;
+}
+
+.go-back span:after {
+    content: '\00ab';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -20px;
+    transition: 0.9s;
+}
+
+.go-back:hover span {
+    padding-left: 25px;
+}
+
+.go-back:hover span:after {
+    opacity: 1;
+    left: 0;
+}
+
 .home-sidebar {
     width: 100%;
     height: 100%;
     background-color: rgba(70,23,143,1);
 }
+
 .home-sidebar-title, .home-sidebar-content {
     background-color: #fff;
     border-radius: 8px;
@@ -33,14 +88,27 @@
     margin-top: 25px;
     padding: 10px;
 }
-.vote{
+.vote {
     display: flex;
     position: relative;
-    margin:15px 0px;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: flex-start;
+    
+}
+.nameVote input {
+    margin-right: 10px;
+    height: 15px;
+    width: 15px;
 }
 .vote h4:first-child {
     margin-top: 10px;
 }
+.vote:hover {
+    background-color: #cccccc;
+}
+
 .quantilyVote{
     border-radius:50%;
     width: 20px;
@@ -80,10 +148,19 @@
     border-radius: 5px;
     width: 100%;
 }
-.btnEndVote {
 
-}
 .btnEndVote button {
+    width: 45%;
+    height: 50px;
+    margin-top: 55px;
+    border-radius: 8px;
+    border: 1px solid;
+    font-weight: bold;
+    background-color: #FFFFFF;
+    position: relative;
+    margin-bottom: 25px;
+}
+.btnLocation_share button {
     width: 45%;
     height: 50px;
     margin-top: 25px;
@@ -92,5 +169,4 @@
     font-weight: bold;
     background-color: #FFFFFF;
     position: relative;
-    margin-bottom: 25px;
 }
