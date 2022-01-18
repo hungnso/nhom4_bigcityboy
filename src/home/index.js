@@ -7,7 +7,7 @@ function Home() {
   const navigate = useNavigate()
   const handleCLick = e => {
     e.preventDefault()
-    navigate('/create')
+    navigate('/contact')
   }
   return (
     <div className="login_form">

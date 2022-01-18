@@ -9,6 +9,7 @@ import HomeSidebar from './HomeSidebar'
 import AnnouncingVote from './AnnouncingVote/announcingVote'
 import Home from './home'
 import AppProvider from './Context/AppProvider'
+import ListRoom from './ListRoom/ListRoom'
 
 function App() {
   const [isAuth, setIsAuth] = React.useState(localStorage.getItem('isAuth'))
@@ -18,11 +19,12 @@ function App() {
         <AppProvider>
           <Routes>
             <Route element={<LoginSocial setIsAuth={setIsAuth} />} path="login" />
-            <Route element={<LoginForm />} path="/" />
+            <Route element={<LoginForm />} path="/contact" />
             <Route element={<GroupForm />} path="create" />
             <Route element={<HomeSidebar />} path={'room-vote'} />
             <Route element={<AnnouncingVote />} path={'announcingVote'} />
             <Route element={<Home />} path={'home'} />
+            <Route element={<ListRoom />} path={'list-room'} />
           </Routes>
         </AppProvider>
       </AuthProvider>

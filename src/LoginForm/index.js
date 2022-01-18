@@ -52,7 +52,7 @@ export default function LoginForm() {
     }),
     onSubmit: values => {
       // alert(JSON.stringify(values, null, 2))
-      navigate('/create')
+      navigate('/room-vote')
     }
   })
 
