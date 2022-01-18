@@ -1,5 +1,5 @@
-import React from "react";
-import { Modal } from "react-bootstrap";
+import React from 'react'
+import { Modal } from 'react-bootstrap'
 
 const ModalForm = ({ ModalChildren, ModalTile, onHide, show, size }) => {
   return (
@@ -13,14 +13,12 @@ const ModalForm = ({ ModalChildren, ModalTile, onHide, show, size }) => {
         size={size}
       >
         <Modal.Header closeButton>
-          <Modal.Title id="example-custom-modal-styling-title">
-            {ModalTile}
-          </Modal.Title>
+          <Modal.Title id="example-custom-modal-styling-title">{ModalTile}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{ModalChildren}</Modal.Body>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default ModalForm;
+export default ModalForm

@@ -1,27 +1,27 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import AuthProvider from "./Context/AuthProvider";
-import GroupForm from "./GroupForm";
-import LoginForm from "./LoginForm";
-import LoginSocial from "./LoginSocial";
-import HomeSidebar from "./HomeSidebar";
-import AnnouncingVote from "./AnnouncingVote/announcingVote";
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AuthProvider from './Context/AuthProvider'
+import GroupForm from './GroupForm'
+import LoginForm from './LoginForm'
+import LoginSocial from './LoginSocial'
+import HomeSidebar from './HomeSidebar'
+import AnnouncingVote from './AnnouncingVote/announcingVote'
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Switch>
-          <Route component={LoginSocial} path="/login" />
-          <Route component={LoginForm} path="/" exact />
-          <Route component={GroupForm} path="/create" />
-          <Route component={HomeSidebar} path={"/room-vote"} />
-          <Route component={AnnouncingVote} path={"/announcingVote"} />
-        </Switch>
+        <Routes>
+          <Route element={<LoginSocial />} path="login" />
+          <Route element={<LoginForm />} path="/" />
+          <Route element={<GroupForm />} path="create/*" />
+          <Route element={<HomeSidebar />} path={'room-vote'} />
+          <Route element={<AnnouncingVote />} path={'announcingVote'} />
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

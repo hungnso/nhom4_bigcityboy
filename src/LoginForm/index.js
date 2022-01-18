@@ -1,31 +1,31 @@
-import React, { useContext ,useState} from "react";
-import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { Container, Row, Col,Button } from "reactstrap";
-import InputForm from "../components/InputForm";
-import { AuthContext } from "../Context/AuthProvider";
-import { auth } from "../firebase/config";
-import { addDocument } from "../firebase/services";
-import Mapbox from "../MapAddAddress/mapbox";
-import ModalForm from "../components/ModalForm";
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import { Container, Row, Col, Button } from 'reactstrap'
+import InputForm from '../components/InputForm'
+import { AuthContext } from '../Context/AuthProvider'
+import { auth } from '../firebase/config'
+import { addDocument } from '../firebase/services'
+import Mapbox from '../MapAddAddress/mapbox'
+import ModalForm from '../components/ModalForm'
 
 export default function LoginForm() {
-  const history = useHistory();
+  let navigate = useNavigate()
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false)
 
-  const handleCLick = (e) => {
-    e.preventDefault();
-    history.push("/create");
-  };
+  const handleCLick = e => {
+    e.preventDefault()
+    navigate('/create')
+  }
   const {
-    user: { displayName, uid },
-  } = useContext(AuthContext);
+    user: { displayName, uid }
+  } = useContext(AuthContext)
 
-  addDocument("user_location", {
-    latitude: "566666",
-    longtudue: "66666",
-  });
+  addDocument('user_location', {
+    latitude: '566666',
+    longtudue: '66666'
+  })
 
   return (
     <div className="login_form">
@@ -34,9 +34,9 @@ export default function LoginForm() {
       <Container>
         <h1
           style={{
-            color: "white",
-            textTransform: "uppercase",
-            textAlign: "center",
+            color: 'white',
+            textTransform: 'uppercase',
+            textAlign: 'center'
           }}
         >
           Chào mừng {displayName} đến với App Cùng Đi Chơi
@@ -52,8 +52,8 @@ export default function LoginForm() {
               </div>
               <div className="formsix-e">
                 <div className="form-group i-password">
-                    <div className="address_vote">
-                    <button  className="btn btn-primary"style={{width:"100%"}} onClick={() => setShow(true)}>
+                  <div className="address_vote">
+                    <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => setShow(true)}>
                       Địa Chỉ
                     </button>
                     <ModalForm
@@ -69,11 +69,7 @@ export default function LoginForm() {
               </div>
 
               <div className="login_btn_wrapper">
-                <button
-                  type="submit"
-                  onClick={(e) => handleCLick(e)}
-                  className="btn btn-primary login_btn"
-                >
+                <button type="submit" onClick={e => handleCLick(e)} className="btn btn-primary login_btn">
                   Submit
                 </button>
               </div>
@@ -83,5 +79,5 @@ export default function LoginForm() {
         </Row>
       </Container>
     </div>
-  );
+  )
 }
