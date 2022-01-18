@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
           uid,
           photoURL
         })
-        // navigate('/')
+
         return
       }
 

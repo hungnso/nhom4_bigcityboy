@@ -7,6 +7,11 @@ const fbProvider = new firebase.auth.FacebookAuthProvider()
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 function LoginSocial({ setIsAuth }) {
   const navigate = useNavigate()
+  const isUser = localStorage.getItem('isAuth')
+  console.log(isUser)
+  if (isUser) {
+    navigate('/')
+  }
 
   const handleLogin = async provider => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider)

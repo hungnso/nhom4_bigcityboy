@@ -10,9 +10,11 @@ import Mapbox from '../MapAddAddress/mapbox'
 import ModalForm from '../components/ModalForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { AppContext } from '../Context/AppProvider'
 
 export default function LoginForm() {
   let navigate = useNavigate()
+  const { curraddName } = useContext(AppContext)
 
   // React.useEffect(() => {
   //   db.collection('users').onSnapshot(snapshot => {
@@ -28,7 +30,7 @@ export default function LoginForm() {
 
   const handleCLick = e => {
     e.preventDefault()
-    navigate('/create')
+    // navigate('/create')
   }
 
   const handleGoBack = () => {
@@ -37,11 +39,6 @@ export default function LoginForm() {
   const {
     user: { displayName, uid }
   } = useContext(AuthContext)
-
-  addDocument('user_location', {
-    latitude: '566666',
-    longtudue: '66666'
-  })
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +51,8 @@ export default function LoginForm() {
         .required('Tên Không Được Để Trống!')
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
+      // alert(JSON.stringify(values, null, 2))
+      navigate('/create')
     }
   })
 
@@ -96,11 +94,19 @@ export default function LoginForm() {
                 <div className="formsix-e">
                   <div className="form-group">
                     <div className="address_vote">
-                      <button className="btn_address" onClick={() => setShow(true)}>
-                        Địa Chỉ
-                      </button>
+                      <div className="">{curraddName}</div>
+                      <div
+                        className="btn_address"
+                        onClick={e => {
+                          e.preventDefault()
+                          setShow(true)
+                        }}
+                      >
+                        {curraddName ? 'Sửa địa chỉ' : 'Nhập địa chỉ của bạn'}
+                      </div>
                       <ModalForm
                         show={show}
+                        setShow={setShow}
                         onHide={() => setShow(false)}
                         ModalTile={''}
                         ModalChildren={<Mapbox />}
@@ -114,7 +120,7 @@ export default function LoginForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" onClick={e => handleCLick(e)} className="btn login_btn">
+                  <button type="submit" className="btn login_btn">
                     Tiếp Theo
                   </button>
                 </div>
