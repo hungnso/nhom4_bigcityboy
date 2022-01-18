@@ -1,8 +1,7 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
-import Mapbox from '../MapAddAddress/mapbox'
 
-const ModalForm = ({ ModalTile, onHide, show, setShow, size, ModalChildren }) => {
+const ModalForm = ({ ModalTile, onHide, show, size, ModalChildren }) => {
   return (
     <>
       <Modal
