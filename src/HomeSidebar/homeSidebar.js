@@ -4,11 +4,14 @@ import './homeSidebar.css'
 import { useNavigate } from 'react-router-dom'
 import ModalForm from '../components/ModalForm'
 import PopupForm from '../components/PopupForm'
+import Mapbox from '../MapAddAddress/mapbox.js'
 
 
 const HomeSidebar = () => {
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
+
+  const [show2, setShow2] = useState(false)
 
   const handleCLick = e => {
     e.preventDefault()
@@ -67,21 +70,21 @@ const HomeSidebar = () => {
                 </div> */}
 
         <div className="btnLocation_share">
-          <button style={{ width: '95%' }} onClick={() => setShow(true)}>
-            Địa Chỉ
+          <button style={{ width: '95%' }} onClick={() => setShow2(true)}>
+            Thêm địa Chỉ
           </button>
           <ModalForm
-            show={show}
-            onHide={() => setShow(false)}
+            show={show2}
+            onHide={() => setShow2(false)}
             ModalTile={''}
-            ModalChildren={<PopupForm value={window.location.href} />}
-            size="md"
+            ModalChildren={<Mapbox/>}
+            size="xl"
           />
         </div>
 
         <div className="btnLocation_share">
-          <button style={{ width: '95%' }} onClick={() => setShow(true)}>
-            Chia sẻ 
+        <button style={{ width: '95%' }} onClick={() => setShow(true)}>
+            Chia Sẻ Link
           </button>
           <ModalForm
             show={show}
