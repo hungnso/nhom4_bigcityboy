@@ -8,13 +8,12 @@
         "arrowParens": "avoid",
         "semi": false,
         "trailingComma": "none",
-        "endOfLine": "lf",
+        "endOfLine": "auto",
         "tabWidth": 2,
         "useTabs": false,
         "singleQuote": true,
         "printWidth": 120,
-        "jsxSingleQuote": false,
-        "endOfLine": "auto"
+        "jsxSingleQuote": false
       }
     ]
   }

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
+import Mapbox from '../MapAddAddress/mapbox'
 
-const ModalForm = ({ ModalChildren, ModalTile, onHide, show, size }) => {
+const ModalForm = ({ ModalTile, onHide, show, setShow, size }) => {
   return (
     <>
       <Modal
@@ -15,7 +16,7 @@ const ModalForm = ({ ModalChildren, ModalTile, onHide, show, size }) => {
         <Modal.Header closeButton>
           <Modal.Title id="example-custom-modal-styling-title">{ModalTile}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{ModalChildren}</Modal.Body>
+        <Modal.Body>{<Mapbox setShow={setShow} />}</Modal.Body>
       </Modal>
     </>
   )

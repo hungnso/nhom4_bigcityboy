@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback, useEffect } from 'react'
+import React, { useRef, useState, useCallback, useEffect, useContext } from 'react'
 import ReactMapGL, { Marker } from 'react-map-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
@@ -6,8 +6,11 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Geocoder from 'react-map-gl-geocoder'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import './style.css'
+import { AppContext } from '../Context/AppProvider'
 
-function Mapbox() {
+function Mapbox({ setShow }) {
+  const { curraddName, setCurrAddName } = useContext(AppContext)
+
   // Token
   var token = 'pk.eyJ1IjoiY29udG90IiwiYSI6ImNreWFvamp0dDAwbnIyb210OGdkbjUxc2oifQ.4h9mS6yDTwWeWFpHyJ_6EQ'
   // Marker
@@ -52,7 +55,7 @@ function Mapbox() {
       .catch(function (error) {
         console.log(error)
       })
-  }, [marker])
+  }, [marker, token])
 
   // Zoom when search
   var geocoderContainerRef = useRef()
@@ -62,7 +65,7 @@ function Mapbox() {
 
   var handleGeocoderViewportChange = useCallback(
     newViewport => {
-      var geocoderDefaultOverrides = { transitionDuration: 1500 };
+      var geocoderDefaultOverrides = { transitionDuration: 1500 }
 
       return handleViewportChange({
         ...newViewport,
@@ -81,11 +84,16 @@ function Mapbox() {
   }
 
   // Submit location
+
   var handleSubmitLocation = () => {
     console.log(marker.latitude)
     console.log(marker.longitude)
     console.log(nameAddress)
+    setCurrAddName(nameAddress)
+
+    setShow(false)
   }
+
   // Return
   return (
     <div>
@@ -129,7 +137,9 @@ function Mapbox() {
           </div>
         </div>
       </div>
-      <button className="btnAdd" onClick={handleSubmitLocation}>Thêm địa điểm</button>
+      <button className="btnAdd" onClick={handleSubmitLocation}>
+        Thêm địa điểm
+      </button>
     </div>
   )
 }
