@@ -106,7 +106,6 @@ export default function LoginForm() {
                       </div>
                       <ModalForm
                         show={show}
-                        setShow={setShow}
                         onHide={() => setShow(false)}
                         ModalTile={''}
                         ModalChildren={<Mapbox />}
@@ -120,7 +119,7 @@ export default function LoginForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" className="btn login_btn">
+                  <button type="submit" onClick={e => handleCLick(e)} className="btn login_btn">
                     Tiếp Theo
                   </button>
                 </div>
