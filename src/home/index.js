@@ -13,7 +13,11 @@ function Home() {
   const navigate = useNavigate()
   const handleCLick = e => {
     e.preventDefault()
+<<<<<<< HEAD
     navigate('/')
+=======
+    navigate('/contact')
+>>>>>>> e98efa11f99d07be3d8fa6f439b5f45a3c42cc58
   }
   return (
     <div className="login_form">

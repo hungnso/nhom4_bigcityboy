@@ -24,7 +24,7 @@ function LoginSocial({ setIsAuth }) {
         photoURL: user.photoURL,
         providerId: additionalUserInfo.providerId
       })
-      navigate('/')
+      navigate('/home')
     }
   }
   return (

@@ -29,8 +29,8 @@ function GroupForm() {
 
   // const rooms = useFirestore('rooms', roomsCondition)
   // console.log(rooms)
-  const { rooms } = React.useContext(AppContext)
-  console.log(rooms)
+  // const { rooms } = React.useContext(AppContext)
+  // console.log(rooms)
 
   const handleCLick = e => {
     e.preventDefault()
