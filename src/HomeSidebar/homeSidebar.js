@@ -7,8 +7,7 @@ import PopupForm from '../components/PopupForm'
 import { AppContext } from '../Context/AppProvider'
 const HomeSidebar = () => {
   const navigate = useNavigate()
-  const { rooms } = React.useContext(AppContext)
-  console.log(rooms)
+  const { selectedRoomHost } = React.useContext(AppContext)
 
   const [show, setShow] = useState(false)
 
@@ -21,47 +20,43 @@ const HomeSidebar = () => {
 
   return (
     <>
-      {rooms.map(room => (
-        <div className="home">
-          <div className="home-sidebar">
-            <div className="home-sidebar-title">
-              <h2>{room.title}</h2>
-            </div>
-            <div className="home-sidebar-content">
-              <h2>{room.des}</h2>
-            </div>
+      <div className="home">
+        <div className="home-sidebar">
+          <div className="home-sidebar-title">
+            <h2>Title</h2>
+          </div>
+          <div className="home-sidebar-content">
+            <h2>Desc</h2>
+          </div>
 
-            <div className="home-sidebar-members">
-              {room.location.map(value => (
-                <div className="vote">
-                  <h4 className="nameVote">{value}</h4> <h5 className="quantilyVote">10</h5>
-                </div>
-              ))}
+          <div className="home-sidebar-members">
+            <div className="vote">
+              <h4 className="nameVote">ho tay</h4> <h5 className="quantilyVote">10</h5>
             </div>
-            {/* <div className="home-sidebar-location">
+          </div>
+          {/* <div className="home-sidebar-location">
                       
                   </div> */}
 
-            <div className="btnEndVote">
-              <button style={{ width: '95%' }} onClick={() => setShow(true)}>
-                Địa Chỉ
-              </button>
-              <ModalForm
-                show={show}
-                onHide={() => setShow(false)}
-                ModalTile={''}
-                // ModalChildren={<PopupForm value={window.location.href} />}
-                size="md"
-              />
-            </div>
-            <div className="btnEndVote">
-              <button type="submit" onClick={e => handleCLick(e)}>
-                END VOTE
-              </button>
-            </div>
+          <div className="btnEndVote">
+            <button style={{ width: '95%' }} onClick={() => setShow(true)}>
+              Địa Chỉ
+            </button>
+            <ModalForm
+              show={show}
+              onHide={() => setShow(false)}
+              ModalTile={''}
+              // ModalChildren={<PopupForm value={window.location.href} />}
+              size="md"
+            />
+          </div>
+          <div className="btnEndVote">
+            <button type="submit" onClick={e => handleCLick(e)}>
+              END VOTE
+            </button>
           </div>
         </div>
-      ))}
+      </div>
     </>
   )
 }
