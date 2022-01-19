@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useHistory, useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 import firebase, { auth } from '../firebase/config'
 import { addDocument } from '../firebase/services'
@@ -8,10 +8,13 @@ const googleProvider = new firebase.auth.GoogleAuthProvider()
 function LoginSocial({ setIsAuth }) {
   const navigate = useNavigate()
   const isUser = localStorage.getItem('isAuth')
-  console.log(isUser)
-  if (isUser) {
-    navigate('/home')
-  }
+  // console.log(isUser)
+
+  // useEffect(() => {
+  //   if (isUser) {
+  //     navigate('/home')
+  //   }
+  // }, [])
 
   const handleLogin = async provider => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider)

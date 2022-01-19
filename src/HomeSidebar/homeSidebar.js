@@ -13,7 +13,7 @@ import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = () => {
   const navigate = useNavigate()
-  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote } = React.useContext(AppContext)
+  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote, selectedRoomId } = React.useContext(AppContext)
   const {
     user: { uid }
   } = React.useContext(AuthContext)
@@ -56,7 +56,7 @@ const HomeSidebar = () => {
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
   // console.log(listLocationVote)
-
+  console.log(selectedRoomId)
   const handleEndVote = e => {
     e.preventDefault()
     if (!selectedRoomHost.title) {
@@ -107,7 +107,6 @@ const HomeSidebar = () => {
               size="xl"
             />
           </div>
-
           <div className="btnLocation_share">
             <button style={{ width: '95%' }} onClick={() => setShow(true)}>
               Chia Sẻ Link
@@ -116,7 +115,7 @@ const HomeSidebar = () => {
               show={show}
               onHide={() => setShow(false)}
               ModalTile={''}
-              ModalChildren={<PopupForm value={window.location.href} />}
+              ModalChildren={<PopupForm value={`http://localhost:3000/${selectedRoomId}`} />}
               size="md"
             />
           </div>

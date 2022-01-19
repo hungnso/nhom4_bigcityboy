@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import { useNavigate } from 'react-router-dom'
 import ModalForm from '../components/ModalForm'
@@ -24,7 +24,6 @@ function Home() {
   const navigate = useNavigate()
   const handleCLick = e => {
     e.preventDefault()
-
     navigate('/contact')
   }
 
