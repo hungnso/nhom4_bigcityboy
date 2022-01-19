@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AuthProvider from './Context/AuthProvider'
 import GroupForm from './GroupForm'
@@ -19,6 +19,13 @@ function App() {
   // if (isAuth) {
   //   navigate('/home')
   // }
+  useEffect(() => {
+    console.log(window.location.href)
+    var URL = window.location.href
+    var partURL = URL.split('/')
+    var room_id = partURL[partURL.length - 1]
+    console.log(room_id)
+  }, [])
   return (
     <BrowserRouter>
       <AuthProvider>
