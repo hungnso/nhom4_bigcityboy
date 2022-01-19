@@ -13,7 +13,7 @@ import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = () => {
   const navigate = useNavigate()
-  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote } = React.useContext(AppContext)
+  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote, setList } = React.useContext(AppContext)
   const {
     user: { uid }
   } = React.useContext(AuthContext)
@@ -23,6 +23,8 @@ const HomeSidebar = () => {
   const [show, setShow] = useState(false)
 
   const [show2, setShow2] = useState(false)
+
+  const [listAdd, setListAdd] = useState([])
 
   const conditionHostVote = React.useMemo(() => {
     return {
@@ -54,7 +56,11 @@ const HomeSidebar = () => {
   const arrLocationVoteHost = useFirestore('locations', conditionHostVote)
   const arrLocationVoteClient = useFirestore('locations', conditionClientVote)
 
-  let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
+  React.useMemo(() => {
+    let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
+    setList(listLocationVote)
+    setListAdd(listLocationVote)
+  }, [arrLocationVoteClient, arrLocationVoteHost, setList])
   // console.log(listLocationVote)
 
   const handleEndVote = e => {
@@ -81,7 +87,7 @@ const HomeSidebar = () => {
           </div>
 
           <div className="home-sidebar-members">
-            {listLocationVote.map(location => (
+            {listAdd.map(location => (
               <div className="vote" key={location.id}>
                 <h4 className="nameVote">
                   <input type="checkbox"></input>

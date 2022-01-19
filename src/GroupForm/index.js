@@ -61,15 +61,19 @@ function GroupForm() {
         .required('Nội Dung Không Được Để Trống!')
     }),
     onSubmit: values => {
+      if (locationVote.length > 0) {
+        addDocument('rooms', {
+          title: values.label,
+          description: values.content,
+          max_location: 5,
+          member: [],
+          user_id: uid
+        })
+        navigate('/home')
+      } else {
+        alert('bạn cần nhập địa chỉ')
+      }
       // alert(JSON.stringify(values, null, 2))
-      addDocument('rooms', {
-        title: values.label,
-        description: values.content,
-        max_location: 5,
-        member: [],
-        user_id: uid
-      })
-      navigate('/home')
     }
   })
   return (
@@ -146,7 +150,11 @@ function GroupForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" className="btn login_btn">
+                  <button
+                    type="submit"
+                    className="btn login_btn"
+                    disabled={!(formik.isValid && formik.dirty && !locationVote.length === 0)}
+                  >
                     TẠO PHÒNG BÌNH CHỌN
                   </button>
                 </div>
