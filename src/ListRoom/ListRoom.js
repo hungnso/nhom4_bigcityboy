@@ -1,10 +1,11 @@
 import React from 'react'
 import { AppContext } from '../Context/AppProvider'
+import { db } from '../firebase/config'
 import useFirestore from '../hooks/useFirestore'
 
 export default function ListRoom() {
   const { roomClient, roomHost, setSelectedRoomId, selectedRoomHost, selectedRoomClient } = React.useContext(AppContext)
-  console.log(selectedRoomHost)
+  // console.log(selectedRoomHost)
   /// Lấy địa chỉ hiện tại của từng room
   const condition = React.useMemo(() => {
     return {
@@ -15,7 +16,20 @@ export default function ListRoom() {
   }, [selectedRoomHost.id, selectedRoomClient.id])
 
   const address = useFirestore('user_room', condition)
-  console.log(address)
+  // console.log(address)
+  db.collection('rooms')
+    .doc('Ky28EpIm4WfWHfdToJk1')
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Document data:', doc.data())
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!')
+      }
+    })
+  // db.collection('books').where(db.FieldPath.documentId(), '==', 'Ux3nnZvaRH6kTcbXoF93').get()
+
   return (
     <div>
       <ul>

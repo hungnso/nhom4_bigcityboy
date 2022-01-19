@@ -9,6 +9,8 @@ export const AppContext = React.createContext()
 export default function AppProvider({ children }) {
   const [curraddName, setCurrAddName] = useState('')
   const [selectedRoomId, setSelectedRoomId] = useState('')
+  const [locationVote, setLocationVote] = useState([])
+
   const { user } = React.useContext(AuthContext)
 
   //// Đây là lấy ra các danh sách phòng mà người dùng là khách(client)
@@ -20,7 +22,7 @@ export default function AppProvider({ children }) {
     }
   }, [user.uid])
   const roomClient = useFirestore('rooms', roomsClientCondition)
-  console.log('client', roomClient)
+  // console.log('client', roomClient)
 
   //// Đây là lấy ra các danh sách mà người dùng là chủ (host)
   const roomsHostCondition = React.useMemo(() => {
@@ -31,19 +33,19 @@ export default function AppProvider({ children }) {
     }
   }, [user.uid])
   const roomHost = useFirestore('rooms', roomsHostCondition)
-  console.log('host', roomHost)
+  // console.log('host', roomHost)
 
   /// Kiểm tra phòng host
   const selectedRoomHost = React.useMemo(
     () => roomHost.find(room => room.id === selectedRoomId) || {},
     [roomHost, selectedRoomId]
   )
-  console.log(selectedRoomHost)
+  // console.log(selectedRoomHost)
   const selectedRoomClient = React.useMemo(
     () => roomClient.find(room => room.id === selectedRoomId) || {},
     [roomClient, selectedRoomId]
   )
-  console.log(selectedRoomClient)
+  // console.log(selectedRoomClient)
 
   /// Đây là lấy ra địa chỉ hiện tại của người dùng lúc đã nhập khi vào 1 phòng nào đó
 
@@ -67,7 +69,9 @@ export default function AppProvider({ children }) {
         roomClient,
         roomHost,
         selectedRoomHost,
-        selectedRoomClient
+        selectedRoomClient,
+        locationVote,
+        setLocationVote
       }}
     >
       {children}

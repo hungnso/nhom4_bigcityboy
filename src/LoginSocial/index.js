@@ -10,7 +10,7 @@ function LoginSocial({ setIsAuth }) {
   const isUser = localStorage.getItem('isAuth')
   console.log(isUser)
   if (isUser) {
-    navigate('/')
+    navigate('/home')
   }
 
   const handleLogin = async provider => {

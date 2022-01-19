@@ -51,7 +51,13 @@ export default function LoginForm() {
         .required('Tên Không Được Để Trống!')
     }),
     onSubmit: values => {
-      // alert(JSON.stringify(values, null, 2))
+      console.log(values)
+      console.log(curraddName)
+      addDocument('user_room', {
+        currentLocation: curraddName,
+        nickname: values.full_name,
+        user_id: uid
+      })
       navigate('/create')
     }
   })
@@ -119,7 +125,7 @@ export default function LoginForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" onClick={e => handleCLick(e)} className="btn login_btn">
+                  <button type="submit" className="btn login_btn">
                     Tiếp Theo
                   </button>
                 </div>
