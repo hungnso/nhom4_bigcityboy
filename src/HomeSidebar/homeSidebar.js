@@ -9,6 +9,8 @@ import useFirestore from '../hooks/useFirestore'
 import { addDocument } from '../firebase/services'
 import { AuthContext } from '../Context/AuthProvider'
 import Mapbox from '../MapAddAddress/mapbox'
+import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
+
 const HomeSidebar = () => {
   const navigate = useNavigate()
   const { selectedRoomHost, selectedRoomClient, locationVote } = React.useContext(AppContext)
@@ -52,6 +54,7 @@ const HomeSidebar = () => {
   const arrLocationVoteClient = useFirestore('locations', conditionClientVote)
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
+  console.log(listLocationVote)
 
   const handleEndVote = e => {
     e.preventDefault()
@@ -99,7 +102,7 @@ const HomeSidebar = () => {
               show={show2}
               onHide={() => setShow2(false)}
               ModalTile={''}
-              ModalChildren={<Mapbox />}
+              ModalChildren={<MapboxLocationVote />}
               size="xl"
             />
           </div>
