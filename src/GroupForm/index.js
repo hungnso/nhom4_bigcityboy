@@ -6,16 +6,59 @@ import ModalForm from '../components/ModalForm'
 
 import { useNavigate } from 'react-router-dom'
 import Mapbox from '../MapAddAddress/mapbox'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { db } from '../firebase/config'
+import { AuthContext } from '../Context/AuthProvider'
+import useFirestore from '../hooks/useFirestore'
+import { AppContext } from '../Context/AppProvider'
 
 function GroupForm() {
+  const { user } = React.useContext(AuthContext)
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
+
+  // const roomsCondition = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'members',
+  //     operator: 'array-contains',
+  //     compareValue: user.uid
+  //   }
+  // }, [user.uid])
+
+  // const rooms = useFirestore('rooms', roomsCondition)
+  // console.log(rooms)
+  const { rooms } = React.useContext(AppContext)
+  console.log(rooms)
 
   const handleCLick = e => {
     e.preventDefault()
     navigate('/room-vote')
   }
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      label: '',
+      content: ''
+    },
+    validationSchema: Yup.object({
+      label: Yup.string()
+        .min(2, 'Tiêu Đề Phải Chứa Ít Nhất 2 Ký Tự')
+        .max(30, 'Tiêu Đề Chứa Tối Đa 30 Ký Tự')
+        .required('Tiêu Đề Không Được Để Trống!'),
+      content: Yup.string()
+        .min(2, 'Nội Dung Phải Chứa Ít Nhất 2 Ký Tự')
+        .max(30, 'Nội Dung Tối Đa 512 Ký Tự')
+        .required('Nội Dung Không Được Để Trống!')
+    }),
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2))
+    }
+  })
   return (
     <div className="login_form">
       <div className="krqetT"></div>
@@ -24,48 +67,75 @@ function GroupForm() {
         <Row>
           <Col md={2}></Col>
           <Col md={8}>
-            <div className="login_wrapper">
-              <div className="formsix-pos">
-                <div className="form-group i-email">
-                  <InputForm type="text" id="Text1" placeholder="Tiêu đề *" />
+            <form onSubmit={formik.handleSubmit}>
+              <div className="login_wrapper">
+                <div className="formsix-pos">
+                  <div className="form-group">
+                    <InputForm
+                      type="text"
+                      id="Text1"
+                      placeholder="Tiêu đề *"
+                      name="label"
+                      defaultValue={formik.values.label}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.errors.label && formik.touched.label && <p className="msg_err">{formik.errors.label}</p>}
+                  </div>
+                </div>
+                <div className="formsix-e">
+                  <div className="form-group i-password">
+                    <InputForm
+                      type="text"
+                      id="Text2"
+                      placeholder="Nội dung *"
+                      name="content"
+                      defaultValue={formik.values.content}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.errors.content && formik.touched.content && (
+                      <p className="msg_err">{formik.errors.content}</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="login_btn_wrapper" style={{ textAlign: 'left' }}>
+                  <a href="#" className="btn btn-primary" onClick={() => setShows(true)}>
+                    Thêm địa điểm
+                  </a>
+                  <ModalForm
+                    show={shows}
+                    onHide={() => setShows(false)}
+                    ModalTile={''}
+                    ModalChildren={<Mapbox />}
+                    size="xl"
+                  />
+                </div>
+
+                <div className="address_vote">
+                  <button className="btn_address" onClick={() => setShow(true)}>
+                    số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội
+                  </button>
+                  <ModalForm
+                    show={show}
+                    onHide={() => setShow(false)}
+                    ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
+                    ModalChildren={<Mapbox />}
+                    size="xl"
+                  />
+                </div>
+
+                <div className="login_btn_wrapper" style={{ marginTop: '50px' }}>
+                  <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
+                    Trở Về
+                  </button>
+                  <button type="submit" onClick={e => handleCLick(e)} className="btn login_btn">
+                    TẠO PHÒNG BÌNH CHỌN
+                  </button>
                 </div>
               </div>
-              <div className="formsix-e">
-                <div className="form-group i-password">
-                  <InputForm type="text" id="Text2" placeholder="Nội dung *" />
-                </div>
-              </div>
-
-              <div className="login_btn_wrapper" style={{ textAlign: 'left' }}>
-                <a href="#" className="btn btn-primary" onClick={() => setShows(true)}>
-                  Thêm địa điểm
-                </a>
-                <ModalForm
-                  show={shows}
-                  onHide={() => setShows(false)}
-                  ModalTile={''}
-                  ModalChildren={<Mapbox />}
-                  size="xl"
-                />
-              </div>
-
-              <div className="address_vote">
-                <Button onClick={() => setShow(true)}>số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội</Button>
-                <ModalForm
-                  show={show}
-                  onHide={() => setShow(false)}
-                  ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
-                  ModalChildren={<Mapbox />}
-                  size="xl"
-                />
-              </div>
-
-              <div className="login_btn_wrapper" style={{ marginTop: '20px' }}>
-                <button type="submit" onClick={e => handleCLick(e)} className="btn btn-primary login_btn">
-                  CREATE GROUP
-                </button>
-              </div>
-            </div>
+            </form>
           </Col>
           <Col md={2}></Col>
         </Row>

@@ -1,0 +1,36 @@
+.home_body {
+    background-color: #fff;
+    max-width: 500px;
+    max-height: 500px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.home_item {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid rgb(70, 23, 143);
+    border-radius: 10px;
+    margin: 5px 0;
+}
+.home_item:hover, .home_item:hover button  {
+    background-color:rgb(70, 23, 143);
+}
+.home_item:hover button span {
+    color: #fff;
+}
+.home_item button{
+    background-color: #fff;
+    border: none;
+    display: inline-grid;
+    margin: 0 auto;
+    justify-items: center;
+}
+.home_item span{
+    color: rgb(70, 23, 143);
+    font-size: 14px;
+    margin-top: 5px;
+}
+.icon_zoom{
+    width: 100px;
+    height: auto;
+}

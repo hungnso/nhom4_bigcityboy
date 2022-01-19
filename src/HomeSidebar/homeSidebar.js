@@ -44,7 +44,7 @@ const HomeSidebar = () => {
 
         <div className="btnEndVote">
           <button style={{ width: '95%' }} onClick={() => setShow(true)}>
-            Địa Chỉ
+            Chia Sẻ Link
           </button>
           <ModalForm
             show={show}
@@ -56,7 +56,7 @@ const HomeSidebar = () => {
         </div>
         <div className="btnEndVote">
           <button type="submit" onClick={e => handleCLick(e)}>
-            END VOTE
+            Kết Thúc Bình Chọn
           </button>
         </div>
       </div>

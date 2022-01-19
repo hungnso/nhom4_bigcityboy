@@ -59,10 +59,9 @@ export default function LoginForm() {
                     <ModalForm
                       show={show}
                       onHide={() => setShow(false)}
-                      ModalTile={""}
-                      ModalChildren={<Mapbox/>}
-                      size= "xl"
-                     
+                      ModalTile={''}
+                      ModalChildren={<Mapbox />}
+                      size="xl"
                     />
                   </div>
                 </div>

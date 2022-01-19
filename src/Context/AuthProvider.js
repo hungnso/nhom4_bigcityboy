@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
 
       // reset user info
       setUser({})
-      // navigate('/login')
+      navigate('/login')
     })
 
     // clean function
