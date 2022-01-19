@@ -65,10 +65,7 @@ const HomeSidebar = () => {
             <h5 className="quantilyVote">10</h5>
           </div>
         </div>
-        {/* <div className="home-sidebar-location">
-                    
-                </div> */}
-
+        
         <div className="btnLocation_share">
           <button style={{ width: '95%' }} onClick={() => setShow2(true)}>
             Thêm địa Chỉ
