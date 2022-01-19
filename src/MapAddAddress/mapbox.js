@@ -9,7 +9,7 @@ import './style.css'
 import { AppContext } from '../Context/AppProvider'
 
 function Mapbox({ setShow }) {
-  const { curraddName, setCurrAddName } = useContext(AppContext)
+  const { curraddName, setCurrAddName, setLocationVote } = useContext(AppContext)
 
   // Token
   var token = 'pk.eyJ1IjoiY29udG90IiwiYSI6ImNreWFvamp0dDAwbnIyb210OGdkbjUxc2oifQ.4h9mS6yDTwWeWFpHyJ_6EQ'
@@ -90,6 +90,7 @@ function Mapbox({ setShow }) {
     console.log(marker.longitude)
     console.log(nameAddress)
     setCurrAddName(nameAddress)
+    setLocationVote(prev => [...prev, nameAddress])
 
     setShow(false)
   }

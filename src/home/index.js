@@ -1,20 +1,105 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import { useNavigate } from 'react-router-dom'
 import ModalForm from '../components/ModalForm'
 import InputForm from '../components/InputForm'
 import './styles.css'
-
+import { AppContext } from '../Context/AppProvider'
+import useFirestore from '../hooks/useFirestore'
+import { db } from '../firebase/config'
+import { AuthContext } from '../Context/AuthProvider'
+import useCurrAdd from '../hooks/useCurrAdd'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 function Home() {
+  const {
+    user: { uid }
+  } = useContext(AuthContext)
+  const [idRoom, setIdRoom] = useState('')
   const [show, setShow] = useState(false)
   const [showList, setShowList] = useState(false)
   const [showVote, setShowVote] = useState(false)
+  const { roomClient, roomHost, setSelectedRoomId, selectedRoomHost, selectedRoomClient } = useContext(AppContext)
 
   const navigate = useNavigate()
   const handleCLick = e => {
     e.preventDefault()
     navigate('/contact')
   }
+
+  const conditionHost = React.useMemo(() => {
+    return {
+      fieldName: 'room_id',
+      operator: '==',
+      compareValue: selectedRoomHost.id
+    }
+  }, [selectedRoomHost.id])
+  const conditonUser = React.useMemo(() => {
+    return {
+      fieldName: 'user_id',
+      operator: '==',
+      compareValue: uid
+    }
+  }, [uid])
+
+  const conditionClient = React.useMemo(() => {
+    return {
+      fieldName: 'room_id',
+      operator: '==',
+      compareValue: selectedRoomClient.id
+    }
+  }, [selectedRoomClient.id])
+
+  const currAddHost = useCurrAdd('user_room', conditionHost, conditonUser)
+  const currAddClient = useCurrAdd('user_room', conditionClient, conditonUser)
+
+  React.useEffect(() => {
+    console.log(currAddHost)
+  }, [currAddHost])
+  React.useEffect(() => {
+    console.log(currAddClient)
+  }, [currAddClient])
+
+  const handleJoinRoom = value => {
+    console.log(value)
+    setSelectedRoomId(value)
+    // localStorage.setItem('roomId', value)
+    navigate(`/room-vote/${value}`)
+  }
+  const formik = useFormik({
+    initialValues: {
+      content: ''
+    },
+    validationSchema: Yup.object({
+      content: Yup.string()
+        .min(2, 'Nội Dung Phải Chứa Ít Nhất 2 Ký Tự')
+        .max(30, 'Nội Dung Tối Đa 512 Ký Tự')
+        .required('Nội Dung Không Được Để Trống!')
+    }),
+    onSubmit: values => {
+      const clickRoom = db.collection('rooms').doc(values.content)
+      // alert(JSON.stringify(values, null, 2))
+      clickRoom.get().then(doc => {
+        if (doc.exists) {
+          console.log('Document data:', doc.data())
+          const { member } = doc.data()
+          if (!member.includes(uid)) {
+            clickRoom.update({
+              member: [...member, uid]
+            })
+          }
+
+          setSelectedRoomId(values.content)
+
+          navigate(`/room-vote/${values.content}`)
+        } else {
+          // doc.data() will be undefined in this case
+          alert('Phòng này không tồn tại')
+        }
+      })
+    }
+  })
+
   return (
     <div className="login_form">
       <div className="krqetT"></div>
@@ -46,8 +131,23 @@ function Home() {
                       ModalChildren={
                         <div>
                           <p>Để tham gia cuộc bình chọn, hãy nhập mã phòng do người tổ chức cung cấp **</p>
-                          <InputForm placeholder="Nhập mã tại đây *" />
-                          <button className="btn_tg">Tham Gia</button>
+                          <form onSubmit={formik.handleSubmit}>
+                            <InputForm
+                              type="text"
+                              id="Text1"
+                              placeholder="Nhập mã tại đây"
+                              name="content"
+                              defaultValue={formik.values.content}
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                            />
+                            {formik.errors.content && formik.touched.content && (
+                              <p className="msg_err">{formik.errors.content}</p>
+                            )}
+                            <button type="submit" className="btn_tg">
+                              Tham Gia
+                            </button>
+                          </form>
                         </div>
                       }
                       size="lg"
@@ -66,9 +166,11 @@ function Home() {
                       ModalTile={'Cuộc Bình Chọn Của Bạn!!!'}
                       ModalChildren={
                         <div>
-                          <button className="btn_address">Đi Chơi SaPa</button>
-                          <button className="btn_address">Đi Xem Phim</button>
-                          <button className="btn_address">Đi Lăng Bác</button>
+                          {roomHost.map(room => (
+                            <button key={room.id} className="btn_address" onClick={() => handleJoinRoom(room.id)}>
+                              {room.title}
+                            </button>
+                          ))}
                         </div>
                       }
                       size="lg"
@@ -90,9 +192,11 @@ function Home() {
                       ModalTile={'Cuộc Bình Chọn Đã Tham Gia!!!'}
                       ModalChildren={
                         <div>
-                          <button className="btn_address">Đi Chơi SaPa</button>
-                          <button className="btn_address">Đi Xem Phim</button>
-                          <button className="btn_address">Đi Lăng Bác</button>
+                          {roomClient.map(room => (
+                            <button key={room.id} className="btn_address" onClick={() => handleJoinRoom(room.id)}>
+                              {room.title}
+                            </button>
+                          ))}
                         </div>
                       }
                       size="lg"
