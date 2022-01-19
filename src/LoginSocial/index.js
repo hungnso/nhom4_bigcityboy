@@ -10,7 +10,7 @@ function LoginSocial({ setIsAuth }) {
   const isUser = localStorage.getItem('isAuth')
   console.log(isUser)
   if (isUser) {
-    navigate('/')
+    navigate('/home')
   }
 
   const handleLogin = async provider => {
@@ -24,7 +24,7 @@ function LoginSocial({ setIsAuth }) {
         photoURL: user.photoURL,
         providerId: additionalUserInfo.providerId
       })
-      navigate('/')
+      navigate('/home')
     }
   }
   return (
