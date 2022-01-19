@@ -34,3 +34,29 @@
     width: 100px;
     height: auto;
 }
+
+.btn_tg {
+    margin: 10px 0;
+    border: 1px solid rgb(70, 23, 143);
+    background: #fff;
+    color: rgb(70, 23, 143);
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-size: 16px;
+}
+.btn_tg:hover {
+    background: rgb(70, 23, 143);
+    color:#fff;
+}
+
+.btn_address {
+    margin: 5px 0;
+  }
+
+@media screen and (max-width:767px) {
+    .home_body {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+    }
+}

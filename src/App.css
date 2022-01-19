@@ -5,7 +5,7 @@
   background-color: rgb(70, 23, 143);
   height: 100vh;
   width: 100vw;
-  padding-top: 100px;
+  padding: 100px 0;
   position: relative;
 }
 
@@ -149,4 +149,10 @@ button.btn_address {
   width: 30px;
   height: auto;
   margin-right: 20px;
+}
+
+@media screen and (max-width: 767px) {
+  .login_form {
+    height: 100%;
+  }  
 }

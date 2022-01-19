@@ -51,7 +51,13 @@ export default function LoginForm() {
         .required('Tên Không Được Để Trống!')
     }),
     onSubmit: values => {
-      // alert(JSON.stringify(values, null, 2))
+      console.log(values)
+      console.log(curraddName)
+      addDocument('user_room', {
+        currentLocation: curraddName,
+        nickname: values.full_name,
+        user_id: uid
+      })
       navigate('/create')
     }
   })
@@ -106,7 +112,6 @@ export default function LoginForm() {
                       </div>
                       <ModalForm
                         show={show}
-                        setShow={setShow}
                         onHide={() => setShow(false)}
                         ModalTile={''}
                         ModalChildren={<Mapbox />}

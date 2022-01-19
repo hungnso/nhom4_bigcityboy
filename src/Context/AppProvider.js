@@ -8,27 +8,73 @@ export const AppContext = React.createContext()
 
 export default function AppProvider({ children }) {
   const [curraddName, setCurrAddName] = useState('')
-  // console.log(curraddName)
+  const [selectedRoomId, setSelectedRoomId] = useState('')
+  const [locationVote, setLocationVote] = useState([])
+
   const { user } = React.useContext(AuthContext)
-  const roomsCondition = React.useMemo(() => {
+
+  //// Đây là lấy ra các danh sách phòng mà người dùng là khách(client)
+  const roomsClientCondition = React.useMemo(() => {
     return {
-      fieldName: 'members',
+      fieldName: 'member',
       operator: 'array-contains',
       compareValue: user.uid
     }
   }, [user.uid])
+  const roomClient = useFirestore('rooms', roomsClientCondition)
+  // console.log('client', roomClient)
 
-  const rooms = useFirestore('rooms', roomsCondition)
-
-  const userCondition = React.useMemo(() => {
+  //// Đây là lấy ra các danh sách mà người dùng là chủ (host)
+  const roomsHostCondition = React.useMemo(() => {
     return {
-      fieldName: 'displayName',
+      fieldName: 'user_id',
       operator: '==',
-      compareValue: 'Hùng Dương'
+      compareValue: user.uid
     }
-  }, [])
-  const hung = useFirestore('users', userCondition)
-  console.log(hung)
+  }, [user.uid])
+  const roomHost = useFirestore('rooms', roomsHostCondition)
+  // console.log('host', roomHost)
 
-  return <AppContext.Provider value={{ rooms, curraddName, setCurrAddName, hung }}>{children}</AppContext.Provider>
+  /// Kiểm tra phòng host
+  const selectedRoomHost = React.useMemo(
+    () => roomHost.find(room => room.id === selectedRoomId) || {},
+    [roomHost, selectedRoomId]
+  )
+  // console.log(selectedRoomHost)
+  const selectedRoomClient = React.useMemo(
+    () => roomClient.find(room => room.id === selectedRoomId) || {},
+    [roomClient, selectedRoomId]
+  )
+  // console.log(selectedRoomClient)
+
+  /// Đây là lấy ra địa chỉ hiện tại của người dùng lúc đã nhập khi vào 1 phòng nào đó
+
+  // const curAddCondition = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'user_id',
+  //     operator: '==',
+  //     compareValue: selectedRoomHost.user_id
+  //   }
+  // }, [selectedRoomHost])
+  // const curAdd = useFirestore('user_room', curAddCondition)
+  // console.log(curAdd)
+
+  return (
+    <AppContext.Provider
+      value={{
+        curraddName,
+        setCurrAddName,
+        selectedRoomId,
+        setSelectedRoomId,
+        roomClient,
+        roomHost,
+        selectedRoomHost,
+        selectedRoomClient,
+        locationVote,
+        setLocationVote
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  )
 }
