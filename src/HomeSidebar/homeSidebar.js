@@ -13,13 +13,13 @@ import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = () => {
   const navigate = useNavigate()
-  const { selectedRoomHost, selectedRoomClient, locationVote } = React.useContext(AppContext)
+  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote } = React.useContext(AppContext)
   const {
     user: { uid }
   } = React.useContext(AuthContext)
   // console.log(!selectedRoomClient)
   // console.log(!!selectedRoomHost)
-  console.log(locationVote)
+  // console.log(locationVote)
   const [show, setShow] = useState(false)
 
   const [show2, setShow2] = useState(false)
@@ -47,14 +47,15 @@ const HomeSidebar = () => {
         room_id: selectedRoomHost.id ? selectedRoomHost.id : selectedRoomClient.id,
         createBy: uid
       })
+      setLocationVote([])
     })
-  }, [locationVote, selectedRoomClient.id, uid, selectedRoomHost])
+  }, [locationVote, selectedRoomClient.id, uid, selectedRoomHost, setLocationVote])
 
   const arrLocationVoteHost = useFirestore('locations', conditionHostVote)
   const arrLocationVoteClient = useFirestore('locations', conditionClientVote)
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
-  console.log(listLocationVote)
+  // console.log(listLocationVote)
 
   const handleEndVote = e => {
     e.preventDefault()
