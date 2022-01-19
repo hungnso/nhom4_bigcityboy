@@ -66,7 +66,9 @@ const HomeSidebar = () => {
     <>
       <div className="home">
         <div className="home-sidebar">
-          <button class="go-back"><span>Quay lại</span></button>
+          <button class="go-back">
+            <span>Quay lại</span>
+          </button>
           <div className="home-sidebar-title">
             <h2>{selectedRoomHost.title ? selectedRoomHost.title : selectedRoomClient.title}</h2>
           </div>
@@ -77,7 +79,10 @@ const HomeSidebar = () => {
           <div className="home-sidebar-members">
             {listLocationVote.map(location => (
               <div className="vote" key={location.id}>
-                <h4 className="nameVote"><input type="checkbox"></input>{location.location}</h4>
+                <h4 className="nameVote">
+                  <input type="checkbox"></input>
+                  {location.location}
+                </h4>
                 <h5 className="quantilyVote">{location.num_vote}</h5>
               </div>
             ))}
@@ -90,26 +95,26 @@ const HomeSidebar = () => {
             <button style={{ width: '95%' }} onClick={() => setShow2(true)}>
               Thêm địa Chỉ
             </button>
-              <ModalForm
-                show={show2}
-                onHide={() => setShow2(false)}
-                ModalTile={''}
-                ModalChildren={<Mapbox/>}
-                size="xl"
-              />
+            <ModalForm
+              show={show2}
+              onHide={() => setShow2(false)}
+              ModalTile={''}
+              ModalChildren={<Mapbox />}
+              size="xl"
+            />
           </div>
 
           <div className="btnLocation_share">
             <button style={{ width: '95%' }} onClick={() => setShow(true)}>
               Chia Sẻ Link
             </button>
-              <ModalForm
-                show={show}
-                onHide={() => setShow(false)}
-                ModalTile={''}
-                ModalChildren={<PopupForm value={window.location.href} />}
-                size="md"
-              />
+            <ModalForm
+              show={show}
+              onHide={() => setShow(false)}
+              ModalTile={''}
+              ModalChildren={<PopupForm value={window.location.href} />}
+              size="md"
+            />
           </div>
           <div className="btnEndVote">
             <button type="submit" onClick={e => handleEndVote(e)}>

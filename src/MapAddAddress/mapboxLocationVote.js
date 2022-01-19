@@ -8,7 +8,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 import './style.css'
 import { AppContext } from '../Context/AppProvider'
 
-function Mapbox({ setShow }) {
+function MapboxLocationVote({ setShow }) {
   const { curraddName, setCurrAddName, setLocationVote } = useContext(AppContext)
 
   // Token
@@ -89,9 +89,9 @@ function Mapbox({ setShow }) {
     console.log(marker.latitude)
     console.log(marker.longitude)
     console.log(nameAddress)
-    setCurrAddName(nameAddress)
-    console.log(curraddName)
-    // setLocationVote(prev => [...prev, nameAddress])
+    // setCurrAddName(nameAddress)
+    // console.log(curraddName)
+    setLocationVote(prev => [...prev, nameAddress])
 
     // setShow(false)
   }
@@ -145,4 +145,4 @@ function Mapbox({ setShow }) {
     </div>
   )
 }
-export default Mapbox
+export default MapboxLocationVote
