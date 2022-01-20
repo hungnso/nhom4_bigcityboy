@@ -55,7 +55,7 @@ function Home() {
   const currAddClient = useCurrAdd('user_room', conditionClient, conditonUser)
 
   React.useEffect(() => {
-    console.log(currAddHost)
+    // console.log(currAddHost)
   }, [currAddHost])
   React.useEffect(() => {
     console.log(currAddClient)

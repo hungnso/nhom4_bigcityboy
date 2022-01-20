@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import './homeSidebar.css'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -78,9 +78,29 @@ const HomeSidebar = () => {
     })
   }, [locationVote, params.id, uid, setLocationVote])
 
-  const arrLocationVoteHost = useFirestore('locations', conditionVote)
+  // useEffect(() => {
+  //   listAdd.map(location => {
+  //     let locationId = location.id
+  //     let locationItem = db.collection('locations').doc(locationId)
+  //     locationItem
+  //       .get()
+  //       .then(doc => {
+  //         let voteUsers = doc.data().vote_users
+  //         voteUsers.include
+  //       })
+  //       .catch(error => {
+  //         console.log('Error getting document:', error)
+  //       })
+  //   })
+  // }, [])
 
-  // console.log(listLocationVote)
+  const arrLocationVoteHost = useFirestore('locations', conditionVote)
+  React.useMemo(() => {
+    let listLocationVote = [...arrLocationVoteHost]
+    setList(listLocationVote)
+    setListAdd(listLocationVote)
+  }, [arrLocationVoteHost, setList])
+
   React.useMemo(() => {
     let listLocationVote = [...arrLocationVoteHost]
     setList(listLocationVote)
@@ -91,7 +111,7 @@ const HomeSidebar = () => {
     navigate(-1)
   }
   /// Lấy ra danh sách người dùng có trong phòng
-  console.log(valueRoom)
+  // console.log(valueRoom)
   const usersCondition = React.useMemo(() => {
     return {
       fieldName: 'uid',
@@ -101,7 +121,7 @@ const HomeSidebar = () => {
   }, [valueRoom.member])
 
   const memberList = useFirestore('users', usersCondition)
-  console.log(memberList)
+  // console.log(memberList)
 
   const handleEndVote = e => {
     e.preventDefault()
@@ -112,11 +132,10 @@ const HomeSidebar = () => {
     }
   }
 
-  var handleCheckBox = e => {
-    console.log(e.target.checked)
-    var locationId = e.target.value
+  const handleCheckBox = e => {
+    const locationId = e.target.value
     // Create a reference to the locationId doc.
-    var locationItem = db.collection('locations').doc(locationId)
+    const locationItem = db.collection('locations').doc(locationId)
     locationItem
       .get()
       .then(doc => {
@@ -134,19 +153,21 @@ const HomeSidebar = () => {
             // eslint-disable-next-line no-throw-literal
             throw 'Document does not exist!'
           }
-          // Add one person to the city population.
-          // Note: this could be done without a transaction
-          //       by updating the population using FieldValue.increment()
-          var NumVote = sfDoc.data().num_vote
-          e.target.checked
-            ? transaction.update(locationItem, { num_vote: NumVote + 1 })
-            : transaction.update(locationItem, { num_vote: NumVote - 1 })
-          console.log(sfDoc.data().num_vote);
+          let numVote = sfDoc.data().num_vote
+          // let voteUsers = sfDoc.data().vote_users
+          if (e.target.checked) {
+            console.log(true)
+            transaction.update(locationItem, { num_vote: numVote + 1 })
+            // transaction.update(locationItem, { vote_users: voteUsers.push(uid) })
+          } else {
+            console.log(false)
+            transaction.update(locationItem, { num_vote: numVote - 1 })
+            // let newVoteUsers = voteUsers.splice(voteUsers.indexOf('c'), 1)
+            // transaction.update(locationItem, { vote_users: newVoteUsers })
+          }
         })
       })
-      .then(() => {
-        console.log('Transaction successfully committed!')
-      })
+      .then(() => { })
       .catch(error => {
         console.log('Transaction failed: ', error)
       })
@@ -169,7 +190,12 @@ const HomeSidebar = () => {
             {listAdd.map(location => (
               <div className="vote" key={location.id}>
                 <h4 className="nameVote">
-                  <input type="checkbox" value={location.id} onClick={e => handleCheckBox(e)}></input>
+                  <input
+                    type="checkbox"
+                    value={location.id}
+                    onChange={e => handleCheckBox(e)}
+                  // checked={location => (location.vote_users.includes(uid) ? true : false)}
+                  ></input>
                   {location.location}
                 </h4>
                 <h5 className="quantilyVote">{location.num_vote}</h5>
