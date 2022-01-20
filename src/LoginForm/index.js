@@ -15,7 +15,7 @@ import { AppContext } from '../Context/AppProvider'
 export default function LoginForm() {
   let navigate = useNavigate()
   const { curraddName } = useContext(AppContext)
-
+  const [nickname, setNickName] = React.useState('')
   // React.useEffect(() => {
   //   db.collection('users').onSnapshot(snapshot => {
   //     const data = snapshot.docs.map(doc => ({
@@ -42,7 +42,7 @@ export default function LoginForm() {
 
   const formik = useFormik({
     initialValues: {
-      full_name: ''
+      full_name: nickname
     },
     validationSchema: Yup.object({
       full_name: Yup.string()
@@ -52,6 +52,7 @@ export default function LoginForm() {
     }),
     onSubmit: values => {
       console.log(values)
+      setNickName(values.full_name)
       console.log(curraddName)
       addDocument('user_room', {
         currentLocation: curraddName,

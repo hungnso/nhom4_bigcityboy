@@ -12,8 +12,6 @@ export default function AppProvider({ children }) {
   const [locationVote, setLocationVote] = useState([])
   const [list, setList] = useState([])
 
-  console.log(list)
-
   const { user } = React.useContext(AuthContext)
 
   //// Đây là lấy ra các danh sách phòng mà người dùng là khách(client)

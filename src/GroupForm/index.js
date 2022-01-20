@@ -66,7 +66,7 @@ function GroupForm() {
           title: values.label,
           description: values.content,
           max_location: 5,
-          member: [],
+          member: [uid],
           user_id: uid
         })
         navigate('/home')
@@ -150,11 +150,7 @@ function GroupForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button
-                    type="submit"
-                    className="btn login_btn"
-                    disabled={!(formik.isValid && formik.dirty && !locationVote.length === 0)}
-                  >
+                  <button type="submit" className="btn login_btn" disabled={!(formik.isValid && formik.dirty)}>
                     TẠO PHÒNG BÌNH CHỌN
                   </button>
                 </div>
