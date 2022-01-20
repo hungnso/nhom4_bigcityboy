@@ -11,10 +11,15 @@ import * as Yup from 'yup'
 import { db } from '../firebase/config'
 import { AuthContext } from '../Context/AuthProvider'
 import useFirestore from '../hooks/useFirestore'
-import { AppContext } from '../Context/AppProvider'
+import AppProvider, { AppContext } from '../Context/AppProvider'
+import { addDocument } from '../firebase/services'
+import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 function GroupForm() {
-  const { user } = React.useContext(AuthContext)
+  const {
+    user: { uid }
+  } = React.useContext(AuthContext)
+  const { locationVote } = React.useContext(AppContext)
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
@@ -29,8 +34,8 @@ function GroupForm() {
 
   // const rooms = useFirestore('rooms', roomsCondition)
   // console.log(rooms)
-  const { rooms } = React.useContext(AppContext)
-  console.log(rooms)
+  // const { rooms } = React.useContext(AppContext)
+  // console.log(rooms)
 
   const handleCLick = e => {
     e.preventDefault()
@@ -39,6 +44,12 @@ function GroupForm() {
   const handleGoBack = () => {
     navigate(-1)
   }
+  const onClose =() => { 
+
+    setShow(false)
+    setShows(false)
+  
+}
 
   const formik = useFormik({
     initialValues: {
@@ -56,7 +67,15 @@ function GroupForm() {
         .required('Nội Dung Không Được Để Trống!')
     }),
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2))
+      // alert(JSON.stringify(values, null, 2))
+      addDocument('rooms', {
+        title: values.label,
+        description: values.content,
+        max_location: 5,
+        member: [],
+        user_id: uid
+      })
+      navigate('/home')
     }
   })
   return (
@@ -108,29 +127,32 @@ function GroupForm() {
                     show={shows}
                     onHide={() => setShows(false)}
                     ModalTile={''}
-                    ModalChildren={<Mapbox />}
+                    ModalChildren={<MapboxLocationVote  onClose={onClose}/>}
                     size="xl"
                   />
                 </div>
 
                 <div className="address_vote">
-                  <button className="btn_address" onClick={() => setShow(true)}>
-                    số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội
-                  </button>
+                  {locationVote.map(value => (
+                    <button type="button" key={`${value} +1`} className="btn_address" onClick={() => setShow(true)}>
+                      {value}
+                    </button>
+                  ))}
+
                   <ModalForm
                     show={show}
                     onHide={() => setShow(false)}
-                    ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
-                    ModalChildren={<Mapbox />}
+                    ModalTile={''}
+                    ModalChildren={<Mapbox onClose={onClose}/>}
                     size="xl"
                   />
                 </div>
-
+ 
                 <div className="login_btn_wrapper" style={{ marginTop: '50px' }}>
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" onClick={e => handleCLick(e)} className="btn login_btn">
+                  <button type="submit" className="btn login_btn">
                     TẠO PHÒNG BÌNH CHỌN
                   </button>
                 </div>

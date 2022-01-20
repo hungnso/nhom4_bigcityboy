@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal } from 'react-bootstrap'
 
-const ModalForm = ({ ModalChildren, ModalTile, onHide, show, size }) => {
+const ModalForm = ({ ModalTile, onHide, show, size, ModalChildren }) => {
   return (
     <>
       <Modal

@@ -7,6 +7,11 @@ const fbProvider = new firebase.auth.FacebookAuthProvider()
 const googleProvider = new firebase.auth.GoogleAuthProvider()
 function LoginSocial({ setIsAuth }) {
   const navigate = useNavigate()
+  const isUser = localStorage.getItem('isAuth')
+  console.log(isUser)
+  if (isUser) {
+    navigate('/home')
+  }
 
   const handleLogin = async provider => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider)
@@ -16,10 +21,11 @@ function LoginSocial({ setIsAuth }) {
       addDocument('users', {
         displayName: user.displayName,
         email: user.email,
+        uid:user.uid,
         photoURL: user.photoURL,
         providerId: additionalUserInfo.providerId
       })
-      navigate('/')
+      navigate('/home')
     }
   }
   return (
