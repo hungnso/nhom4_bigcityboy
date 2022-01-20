@@ -53,6 +53,10 @@ const HomeSidebar = () => {
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
 
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
   const handleEndVote = e => {
     e.preventDefault()
     if (!selectedRoomHost.title) {
@@ -66,7 +70,7 @@ const HomeSidebar = () => {
     <>
       <div className="home">
         <div className="home-sidebar">
-          <button class="go-back"><span>Quay lại</span></button>
+          
           <div className="home-sidebar-title">
             <h2>{selectedRoomHost.title ? selectedRoomHost.title : selectedRoomClient.title}</h2>
           </div>
@@ -82,6 +86,7 @@ const HomeSidebar = () => {
               </div>
             ))}
           </div>
+
           {/* <div className="home-sidebar-location">
                       
                   </div> */}
@@ -113,9 +118,10 @@ const HomeSidebar = () => {
           </div>
           <div className="btnEndVote">
             <button type="submit" onClick={e => handleEndVote(e)}>
-              END VOTE
+              Kết thúc
             </button>
           </div>
+          <button class="go-back" onClick={handleGoBack}><span>Quay lại</span></button>
         </div>
       </div>
     </>

@@ -3,7 +3,8 @@
     max-width: 500px;
     max-height: 500px;
     padding: 20px;
-    margin: 0 auto;
+    margin: 75px auto;
+    border-radius: 10px;
 }
 .home_item {
     text-align: center;
