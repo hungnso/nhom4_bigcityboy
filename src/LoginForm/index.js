@@ -11,6 +11,7 @@ import ModalForm from '../components/ModalForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { AppContext } from '../Context/AppProvider'
+import LogOut from '../components/LogOut'
 
 export default function LoginForm() {
   let navigate = useNavigate()
@@ -66,6 +67,7 @@ export default function LoginForm() {
     <div className="login_form">
       <div className="krqetT"></div>
       <div className="ifKAln"></div>
+      <LogOut />
       <Container>
         <h1
           style={{

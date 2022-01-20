@@ -14,6 +14,7 @@ import useFirestore from '../hooks/useFirestore'
 import AppProvider, { AppContext } from '../Context/AppProvider'
 import { addDocument } from '../firebase/services'
 import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
+import LogOut from '../components/LogOut'
 
 function GroupForm() {
   const {
@@ -76,6 +77,7 @@ function GroupForm() {
     <div className="login_form">
       <div className="krqetT"></div>
       <div className="ifKAln"></div>
+      <LogOut />
       <Container>
         <Row>
           <Col md={2}></Col>

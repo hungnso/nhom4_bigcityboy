@@ -74,7 +74,6 @@ const HomeSidebar = () => {
     <>
       <div className="home">
         <div className="home-sidebar">
-          
           <div className="home-sidebar-title">
             <h2>{selectedRoomHost.title ? selectedRoomHost.title : selectedRoomClient.title}</h2>
           </div>
@@ -128,7 +127,9 @@ const HomeSidebar = () => {
               Kết thúc
             </button>
           </div>
-          <button class="go-back" onClick={handleGoBack}><span>Quay lại</span></button>
+          <button className="go-back" onClick={handleGoBack}>
+            <span>Quay lại</span>
+          </button>
         </div>
       </div>
     </>

@@ -2,6 +2,7 @@ import React, { useRef, useContext } from 'react'
 import './styles.css'
 import { useOutsideClick } from './useOutsideClick'
 import { AuthContext } from '../Context/AuthProvider'
+import firebase from '../firebase/config'
 
 function LogOut() {
   const dropdownRef = useRef(null)
@@ -12,6 +13,8 @@ function LogOut() {
     user: { displayName, uid, photoURL }
   } = useContext(AuthContext)
 
+  const signOutUser = () => firebase.auth.signOut()
+
   return (
     <div className="menu-container">
       <button onClick={onClick} className="menu-trigger">
@@ -21,7 +24,7 @@ function LogOut() {
       <nav ref={dropdownRef} className={`menu ${isActive ? 'active' : 'inactive'}`}>
         <ul>
           <li>
-            <button>Đăng Xuất</button>
+            <button onClick={signOutUser}>Đăng Xuất</button>
           </li>
         </ul>
       </nav>
