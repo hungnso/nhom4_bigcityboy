@@ -11,9 +11,10 @@ import { AuthContext } from '../Context/AuthProvider'
 import useCurrAdd from '../hooks/useCurrAdd'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import LogOut from '../components/LogOut'
 function Home() {
   const {
-    user: { uid }
+    user: { uid, displayName }
   } = useContext(AuthContext)
   const [idRoom, setIdRoom] = useState('')
   const [show, setShow] = useState(false)
@@ -104,7 +105,26 @@ function Home() {
     <div className="login_form">
       <div className="krqetT"></div>
       <div className="ifKAln"></div>
+      <LogOut />
       <Container>
+        <h1
+          style={{
+            color: 'white',
+            textTransform: 'uppercase',
+            textAlign: 'center'
+          }}
+        >
+          Chào mừng {displayName} đến với App Cùng Đi Chơi
+        </h1>
+        <h3
+          style={{
+            color: 'white',
+            textTransform: 'uppercase',
+            textAlign: 'center'
+          }}
+        >
+          Địa chỉ hiện tại của bạn là :{' '}
+        </h3>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -120,7 +140,11 @@ function Home() {
                 </Col>
                 <Col md={6}>
                   <div className="home_item">
-                    <button onClick={() => setShow(true)}>
+                    <button
+                      onClick={e => {
+                        setShow(true)
+                      }}
+                    >
                       <img className="icon_zoom" src={'http://cdn.onlinewebfonts.com/svg/img_356964.png'} />
                       <span>Vào Phòng Sẵn Có</span>
                     </button>
@@ -144,7 +168,7 @@ function Home() {
                             {formik.errors.content && formik.touched.content && (
                               <p className="msg_err">{formik.errors.content}</p>
                             )}
-                            <button type="submit" className="btn_tg">
+                            <button type="submit" className="btn_tg" disabled={!(formik.isValid && formik.dirty)}>
                               Tham Gia
                             </button>
                           </form>

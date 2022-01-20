@@ -21,7 +21,7 @@ function LoadingLink() {
           }
         })
       })
-    navigate('/error')
+    navigate('/login')
   }, [])
 
   return <div></div>
