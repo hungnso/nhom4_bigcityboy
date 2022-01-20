@@ -118,9 +118,6 @@ const HomeSidebar = () => {
     <>
       <div className="home">
         <div className="home-sidebar">
-          <button onClick={handleGoBack} class="go-back">
-            <span>Quay lại</span>
-          </button>
           <div className="home-sidebar-title">
             {/* <h2>{selectedRoomHost.title ? selectedRoomHost.title : selectedRoomClient.title}</h2> */}
             <h2>{valueRoom.title}</h2>
@@ -175,6 +172,9 @@ const HomeSidebar = () => {
               END VOTE
             </button>
           </div>
+          <button className="go-back" onClick={handleGoBack}>
+            <span>Quay lại</span>
+          </button>
         </div>
       </div>
     </>
