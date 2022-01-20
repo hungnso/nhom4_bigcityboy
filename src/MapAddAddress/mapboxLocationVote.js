@@ -91,6 +91,7 @@ function MapboxLocationVote({ setShow }) {
     console.log(nameAddress)
     // setCurrAddName(nameAddress)
     // console.log(curraddName)
+    // setLocationVote([])
     setLocationVote(prev => [...prev, nameAddress])
 
     // setShow(false)

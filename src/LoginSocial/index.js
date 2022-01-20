@@ -3,8 +3,10 @@ import { useHistory, useNavigate } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 import firebase, { auth } from '../firebase/config'
 import { addDocument } from '../firebase/services'
+
 const fbProvider = new firebase.auth.FacebookAuthProvider()
 const googleProvider = new firebase.auth.GoogleAuthProvider()
+
 function LoginSocial({ setIsAuth }) {
   const navigate = useNavigate()
   const isUser = localStorage.getItem('isAuth')

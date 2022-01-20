@@ -13,13 +13,13 @@ import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = () => {
   const navigate = useNavigate()
-  const { selectedRoomHost, selectedRoomClient, locationVote } = React.useContext(AppContext)
+  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote } = React.useContext(AppContext)
   const {
     user: { uid }
   } = React.useContext(AuthContext)
   // console.log(!selectedRoomClient)
   // console.log(!!selectedRoomHost)
-  console.log(locationVote)
+  // console.log(locationVote)
   const [show, setShow] = useState(false)
 
   const [show2, setShow2] = useState(false)
@@ -47,14 +47,19 @@ const HomeSidebar = () => {
         room_id: selectedRoomHost.id ? selectedRoomHost.id : selectedRoomClient.id,
         createBy: uid
       })
+      setLocationVote([])
     })
-  }, [locationVote, selectedRoomClient.id, uid, selectedRoomHost])
+  }, [locationVote, selectedRoomClient.id, uid, selectedRoomHost, setLocationVote])
 
   const arrLocationVoteHost = useFirestore('locations', conditionHostVote)
   const arrLocationVoteClient = useFirestore('locations', conditionClientVote)
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
-  console.log(listLocationVote)
+  // console.log(listLocationVote)
+
+  const handleGoBack = () => {
+    navigate(-1)
+  }
 
   const handleEndVote = e => {
     e.preventDefault()
@@ -69,9 +74,7 @@ const HomeSidebar = () => {
     <>
       <div className="home">
         <div className="home-sidebar">
-          <button class="go-back">
-            <span>Quay lại</span>
-          </button>
+          
           <div className="home-sidebar-title">
             <h2>{selectedRoomHost.title ? selectedRoomHost.title : selectedRoomClient.title}</h2>
           </div>
@@ -90,6 +93,7 @@ const HomeSidebar = () => {
               </div>
             ))}
           </div>
+
           {/* <div className="home-sidebar-location">
                       
                   </div> */}
@@ -121,9 +125,10 @@ const HomeSidebar = () => {
           </div>
           <div className="btnEndVote">
             <button type="submit" onClick={e => handleEndVote(e)}>
-              END VOTE
+              Kết thúc
             </button>
           </div>
+          <button class="go-back" onClick={handleGoBack}><span>Quay lại</span></button>
         </div>
       </div>
     </>

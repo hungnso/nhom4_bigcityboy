@@ -20,7 +20,6 @@ function GroupForm() {
     user: { uid }
   } = React.useContext(AuthContext)
   const { locationVote } = React.useContext(AppContext)
-  console.log(locationVote)
   const navigate = useNavigate()
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
