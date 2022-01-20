@@ -27,9 +27,9 @@ function App() {
       <AuthProvider>
         <AppProvider>
           <Routes>
-            {/* <Route element={<GuestPage />}> */}
-            <Route element={<LoginSocial />} path="login" />
-            {/* </Route> */}
+            <Route element={<GuestPage />}>
+              <Route element={<LoginSocial />} path="login" />
+            </Route>
             <Route element={<PrivatePage />}>
               <Route element={<LoginForm />} path="/contact" />
               <Route element={<GroupForm />} path="/create" />

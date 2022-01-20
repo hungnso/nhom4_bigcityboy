@@ -2,7 +2,7 @@ import React from 'react'
 import ReactMapGL, { Marker, Popup } from 'react-map-gl'
 import { useState } from 'react'
 
-function Mapbox() {
+function Mapbox({ member }) {
   const [viewport, setViewport] = useState({
     width: '75vw',
     height: '100vh',
@@ -41,9 +41,7 @@ function Mapbox() {
           </div>
         </Marker>
       </ReactMapGL>
-      <div className="listPeople" onClick={showClient}>
-            
-      </div>
+      <div className="listPeople" onClick={showClient}></div>
     </div>
   )
 }
