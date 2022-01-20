@@ -147,7 +147,11 @@ function GroupForm() {
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về
                   </button>
-                  <button type="submit" className="btn login_btn">
+                  <button
+                    type="submit"
+                    className="btn login_btn"
+                    disabled={!(formik.isValid && formik.dirty && locationVote.length != 0)}
+                  >
                     TẠO PHÒNG BÌNH CHỌN
                   </button>
                 </div>
