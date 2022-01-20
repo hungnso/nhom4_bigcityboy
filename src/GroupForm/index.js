@@ -44,6 +44,12 @@ function GroupForm() {
   const handleGoBack = () => {
     navigate(-1)
   }
+  const onClose =() => { 
+
+    setShow(false)
+    setShows(false)
+  
+}
 
   const formik = useFormik({
     initialValues: {
@@ -125,14 +131,14 @@ function GroupForm() {
                     show={shows}
                     onHide={() => setShows(false)}
                     ModalTile={''}
-                    ModalChildren={<MapboxLocationVote />}
+                    ModalChildren={<MapboxLocationVote  onClose={onClose}/>}
                     size="xl"
                   />
                 </div>
 
                 <div className="address_vote">
                   {locationVote.map(value => (
-                    <button key={`${value} +1`} className="btn_address" onClick={() => setShow(true)}>
+                    <button type="button" key={`${value} +1`} className="btn_address" onClick={() => setShow(true)}>
                       {value}
                     </button>
                   ))}
@@ -140,12 +146,12 @@ function GroupForm() {
                   <ModalForm
                     show={show}
                     onHide={() => setShow(false)}
-                    ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
-                    ModalChildren={<Mapbox />}
+                    ModalTile={''}
+                    ModalChildren={<Mapbox onClose={onClose}/>}
                     size="xl"
                   />
                 </div>
-
+ 
                 <div className="login_btn_wrapper" style={{ marginTop: '50px' }}>
                   <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
                     Trở Về

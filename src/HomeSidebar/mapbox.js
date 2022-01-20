@@ -10,8 +10,12 @@ function Mapbox() {
     longitude: 105.7772149,
     zoom: 16
   })
+
+  const showClient = () => {
+    alert('hello world')
+  }
   return (
-    <div className="">
+    <div className="mapBox">
       <ReactMapGL
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
@@ -37,6 +41,9 @@ function Mapbox() {
           </div>
         </Marker>
       </ReactMapGL>
+      <div className="listPeople" onClick={showClient}>
+            
+      </div>
     </div>
   )
 }

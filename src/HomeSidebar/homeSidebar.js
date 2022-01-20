@@ -19,14 +19,16 @@ const HomeSidebar = () => {
   const {
     user: { uid }
   } = React.useContext(AuthContext)
+
   const [show, setShow] = useState(false)
 
   const [show2, setShow2] = useState(false)
-
   const [listAdd, setListAdd] = useState([])
 
   const [valueRoom, setValueRoom] = useState({})
-
+  const onClose = () => {
+    setShow2(false)
+  }
   const conditionVote = React.useMemo(() => {
     return {
       fieldName: 'room_id',
@@ -34,13 +36,20 @@ const HomeSidebar = () => {
       compareValue: params.id
     }
   }, [params.id])
-  const conditionClientVote = React.useMemo(() => {
-    return {
-      fieldName: 'room_id',
-      operator: '==',
-      compareValue: selectedRoomClient.id
-    }
-  }, [selectedRoomClient.id])
+  // const conditionHostVote = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'room_id',
+  //     operator: '==',
+  //     compareValue: selectedRoomHost.id
+  //   }
+  // }, [selectedRoomHost.id])
+  // const conditionClientVote = React.useMemo(() => {
+  //   return {
+  //     fieldName: 'room_id',
+  //     operator: '==',
+  //     compareValue: selectedRoomClient.id
+  //   }
+  // }, [selectedRoomClient.id])
   React.useEffect(() => {
     const { id } = params
     db.collection('rooms')
@@ -55,6 +64,7 @@ const HomeSidebar = () => {
         }
       })
   }, [params])
+
   React.useEffect(() => {
     locationVote.map(value => {
       addDocument('locations', {
@@ -68,15 +78,17 @@ const HomeSidebar = () => {
   }, [locationVote, params.id, uid, setLocationVote])
 
   const arrLocationVoteHost = useFirestore('locations', conditionVote)
-  // const arrLocationVoteClient = useFirestore('locations', conditionClientVote)
 
+  // console.log(listLocationVote)
   React.useMemo(() => {
     let listLocationVote = [...arrLocationVoteHost]
     setList(listLocationVote)
     setListAdd(listLocationVote)
   }, [arrLocationVoteHost, setList])
-  // console.log(listLocationVote)
 
+  const handleGoBack = () => {
+    navigate(-1)
+  }
   /// Lấy ra danh sách người dùng có trong phòng
   console.log(valueRoom)
   const usersCondition = React.useMemo(() => {
@@ -98,10 +110,6 @@ const HomeSidebar = () => {
       navigate('/announcingVote')
     }
   }
-  const handleGoBack = () => {
-    navigate(-1)
-  }
-
   const handleCheck = e => {
     console.log(e.target.checked)
   }
@@ -145,7 +153,7 @@ const HomeSidebar = () => {
               show={show2}
               onHide={() => setShow2(false)}
               ModalTile={''}
-              ModalChildren={<MapboxLocationVote />}
+              ModalChildren={<MapboxLocationVote onClose={onClose} />}
               size="xl"
             />
           </div>
