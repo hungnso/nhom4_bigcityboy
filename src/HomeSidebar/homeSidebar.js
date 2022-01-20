@@ -70,6 +70,7 @@ const HomeSidebar = () => {
       addDocument('locations', {
         location: value,
         num_vote: 0,
+        vote_users: [],
         room_id: params.id,
         createBy: uid
       })
