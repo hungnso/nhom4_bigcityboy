@@ -24,7 +24,7 @@ function App() {
         <AppProvider>
           <Routes>
             {/* <Route element={<GuestPage />}> */}
-            <Route element={<LoginSocial />} path="login" />
+            <Route element={<LoginSocial />} path="/login" />
             {/* </Route> */}
             <Route element={<PrivatePage />}>
               <Route element={<LoginForm />} path="/contact" />
@@ -34,8 +34,9 @@ function App() {
               <Route element={<Home />} path={'/home/*'} />
               <Route element={<ListRoom />} path={'/list-room'} />
               <Route element={<LoadingLink />} path={'/:linkRoom'} />
+              <Route element={<ErrorPage />} path={'/:error'} />
             </Route>
-            <Route path="*" element={<ErrorPage />} />
+            {/* <Route path="*" element={<ErrorPage />} /> */}
           </Routes>
         </AppProvider>
       </AuthProvider>

@@ -110,23 +110,20 @@ const HomeSidebar = () => {
       navigate('/announcingVote')
     }
   }
-  const handleCheck = e => {
-    console.log(e.target.checked)
-  }
 
   var handleCheckBox = e => {
     console.log(e.target.checked)
     var locationId = e.target.value
     // Create a reference to the locationId doc.
     var locationItem = db.collection('locations').doc(locationId)
-    // locationItem
-    //   .get()
-    //   .then(doc => {
-    //     console.log('Document data:', doc.data().num_vote)
-    //   })
-    //   .catch(error => {
-    //     console.log('Error getting document:', error)
-    //   })
+    locationItem
+      .get()
+      .then(doc => {
+        console.log('Document data:', doc.data().vote_users)
+      })
+      .catch(error => {
+        console.log('Error getting document:', error)
+      })
 
     return db
       .runTransaction(transaction => {

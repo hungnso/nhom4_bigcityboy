@@ -10,6 +10,7 @@ function LoadingLink() {
   var { linkRoom } = useParams()
 
   useEffect(() => {
+    console.log('loading link page has loaded')
     // get all room_id
     db.collection('rooms')
       .get()
@@ -21,7 +22,7 @@ function LoadingLink() {
           }
         })
       })
-    navigate('/login')
+    navigate('/error')
   }, [])
 
   return <div></div>
