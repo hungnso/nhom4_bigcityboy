@@ -16,6 +16,8 @@ import LogOut from '../components/LogOut'
 export default function LoginForm() {
   let navigate = useNavigate()
   const { curraddName } = useContext(AppContext)
+  const [nickname, setNickName] = React.useState('')
+  const { roomClient } = useContext(AppContext)
 
   // React.useEffect(() => {
   //   db.collection('users').onSnapshot(snapshot => {
@@ -41,9 +43,12 @@ export default function LoginForm() {
     user: { displayName, uid }
   } = useContext(AuthContext)
 
+  const onClose = () => {
+    setShow(false)
+  }
   const formik = useFormik({
     initialValues: {
-      full_name: ''
+      full_name: nickname
     },
     validationSchema: Yup.object({
       full_name: Yup.string()
@@ -53,6 +58,7 @@ export default function LoginForm() {
     }),
     onSubmit: values => {
       console.log(values)
+      setNickName(values.full_name)
       console.log(curraddName)
       addDocument('user_room', {
         currentLocation: curraddName,
@@ -88,7 +94,7 @@ export default function LoginForm() {
                     <InputForm
                       type="text"
                       id="Text1"
-                      placeholder="Tên Người Dùng *"
+                      placeholder={formik.values.full_name ? formik.values.full_name : 'Tên Người Dùng *'}
                       name="full_name"
                       defaultValue={formik.values.full_name}
                       onChange={formik.handleChange}
@@ -116,7 +122,7 @@ export default function LoginForm() {
                         show={show}
                         onHide={() => setShow(false)}
                         ModalTile={''}
-                        ModalChildren={<Mapbox />}
+                        ModalChildren={<Mapbox onClose={onClose} />}
                         size="xl"
                       />
                     </div>

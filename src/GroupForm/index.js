@@ -45,6 +45,10 @@ function GroupForm() {
   const handleGoBack = () => {
     navigate(-1)
   }
+  const onClose = () => {
+    setShow(false)
+    setShows(false)
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -62,15 +66,19 @@ function GroupForm() {
         .required('Nội Dung Không Được Để Trống!')
     }),
     onSubmit: values => {
+      if (locationVote.length > 0) {
+        addDocument('rooms', {
+          title: values.label,
+          description: values.content,
+          max_location: 5,
+          member: [uid],
+          user_id: uid
+        })
+        navigate('/home')
+      } else {
+        alert('bạn cần nhập địa chỉ')
+      }
       // alert(JSON.stringify(values, null, 2))
-      addDocument('rooms', {
-        title: values.label,
-        description: values.content,
-        max_location: 5,
-        member: [],
-        user_id: uid
-      })
-      navigate('/home')
     }
   })
   return (
@@ -123,14 +131,14 @@ function GroupForm() {
                     show={shows}
                     onHide={() => setShows(false)}
                     ModalTile={''}
-                    ModalChildren={<MapboxLocationVote />}
+                    ModalChildren={<MapboxLocationVote onClose={onClose} />}
                     size="xl"
                   />
                 </div>
 
                 <div className="address_vote">
                   {locationVote.map(value => (
-                    <button key={`${value} +1`} className="btn_address" onClick={() => setShow(true)}>
+                    <button type="button" key={`${value} +1`} className="btn_address" onClick={() => setShow(true)}>
                       {value}
                     </button>
                   ))}
@@ -138,8 +146,8 @@ function GroupForm() {
                   <ModalForm
                     show={show}
                     onHide={() => setShow(false)}
-                    ModalTile={'số 2 Hùng Vương, Điện Bàn, Ba Đình, Hà Nội'}
-                    ModalChildren={<Mapbox />}
+                    ModalTile={''}
+                    ModalChildren={<Mapbox onClose={onClose} />}
                     size="xl"
                   />
                 </div>
