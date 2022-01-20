@@ -13,6 +13,7 @@ import { AuthContext } from '../Context/AuthProvider'
 import useFirestore from '../hooks/useFirestore'
 import AppProvider, { AppContext } from '../Context/AppProvider'
 import { addDocument } from '../firebase/services'
+import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 function GroupForm() {
   const {
@@ -120,7 +121,7 @@ function GroupForm() {
                     show={shows}
                     onHide={() => setShows(false)}
                     ModalTile={''}
-                    ModalChildren={<Mapbox />}
+                    ModalChildren={<MapboxLocationVote />}
                     size="xl"
                   />
                 </div>
