@@ -7,6 +7,6 @@ function GuestPage() {
   console.log(user)
   const isMember = !!user
   console.log(isMember)
-  return !isMember ? <Outlet /> : <Navigate to="/home" />
+  return !isMember ? <Outlet /> : <Navigate to="/" />
 }
 export default GuestPage

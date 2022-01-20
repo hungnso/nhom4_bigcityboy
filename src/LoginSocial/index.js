@@ -12,7 +12,7 @@ function LoginSocial({ setIsAuth }) {
 
   const handleLogin = async provider => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider)
-    navigate('/home')
+    navigate('/')
 
     if (additionalUserInfo?.isNewUser && user) {
       addDocument('users', {
