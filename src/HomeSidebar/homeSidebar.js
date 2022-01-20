@@ -11,7 +11,7 @@ import { AuthContext } from '../Context/AuthProvider'
 import { db } from '../firebase/config'
 import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
-const HomeSidebar = () => {
+const HomeSidebar = ({ setCurrRoom }) => {
   const navigate = useNavigate()
   const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote, selectedRoomId, setList } =
     React.useContext(AppContext)
@@ -123,6 +123,7 @@ const HomeSidebar = () => {
   const memberList = useFirestore('users', usersCondition)
   // console.log(memberList)
 
+  setCurrRoom(valueRoom)
   const handleEndVote = e => {
     e.preventDefault()
     if (!selectedRoomHost.title) {

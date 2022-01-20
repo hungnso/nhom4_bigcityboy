@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { AppContext } from '../Context/AppProvider'
 import axios from 'axios'
 
-function Mapbox() {
+function Mapbox({ member }) {
   const [viewport, setViewport] = useState({
     width: '75vw',
     height: '100vh',
@@ -73,6 +73,7 @@ function Mapbox() {
           )
         })}
       </ReactMapGL>
+      {/* <div className="listPeople" onClick={showClient}></div> */}
     </div>
   )
 }

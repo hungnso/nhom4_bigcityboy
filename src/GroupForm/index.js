@@ -75,7 +75,7 @@ function GroupForm() {
           member: [uid],
           user_id: uid
         })
-        navigate('/home')
+        navigate('/')
       } else {
         alert('bạn cần nhập địa chỉ')
       }
