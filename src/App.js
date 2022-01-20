@@ -40,7 +40,7 @@ function App() {
             <Route element={<AnnouncingVote />} path={'/announcingVote'} />
             <Route element={<Home />} path={'/home'} />
             <Route element={<ListRoom />} path={'/list-room'} />
-            {/* <Route element={<Error />} path={'/error'} /> */}
+            <Route element={<Error />} path={'/error'} />
             <Route path="/:linkRoom" element={<LoadingLink />} />
           </Routes>
         </AppProvider>

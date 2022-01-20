@@ -7,7 +7,6 @@ function Error() {
     // e.preventDefault()
     navigate('/')
   }
-
   return (
     <div className="container">
       <div>Trang này không hiển thị</div>

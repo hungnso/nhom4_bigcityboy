@@ -8,7 +8,7 @@ import { AppContext } from '../Context/AppProvider'
 import useFirestore from '../hooks/useFirestore'
 import { addDocument } from '../firebase/services'
 import { AuthContext } from '../Context/AuthProvider'
-import Mapbox from '../MapAddAddress/mapbox'
+import { db } from '../firebase/config'
 import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = () => {
@@ -56,7 +56,7 @@ const HomeSidebar = () => {
 
   let listLocationVote = [...arrLocationVoteClient, ...arrLocationVoteHost]
   // console.log(listLocationVote)
-  console.log(selectedRoomId)
+  // console.log(selectedRoomId)
   const handleEndVote = e => {
     e.preventDefault()
     if (!selectedRoomHost.title) {
@@ -64,6 +64,46 @@ const HomeSidebar = () => {
     } else {
       navigate('/announcingVote')
     }
+  }
+
+  var handleCheckBox = e => {
+    console.log(e.target.checked)
+    var locationId = e.target.value
+    // Create a reference to the locationId doc.
+    var locationItem = db.collection('locations').doc(locationId)
+    // locationItem
+    //   .get()
+    //   .then(doc => {
+    //     console.log('Document data:', doc.data().num_vote)
+    //   })
+    //   .catch(error => {
+    //     console.log('Error getting document:', error)
+    //   })
+
+    return db
+      .runTransaction(transaction => {
+        // This code may get re-run multiple times if there are conflicts.
+        return transaction.get(locationItem).then(sfDoc => {
+          if (!sfDoc.exists) {
+            // eslint-disable-next-line no-throw-literal
+            throw 'Document does not exist!'
+          }
+          // Add one person to the city population.
+          // Note: this could be done without a transaction
+          //       by updating the population using FieldValue.increment()
+          var NumVote = sfDoc.data().num_vote
+          e.target.checked
+            ? transaction.update(locationItem, { num_vote: NumVote + 1 })
+            : transaction.update(locationItem, { num_vote: NumVote - 1 })
+          console.log(sfDoc.data().num_vote);
+        })
+      })
+      .then(() => {
+        console.log('Transaction successfully committed!')
+      })
+      .catch(error => {
+        console.log('Transaction failed: ', error)
+      })
   }
 
   return (
@@ -84,7 +124,7 @@ const HomeSidebar = () => {
             {listLocationVote.map(location => (
               <div className="vote" key={location.id}>
                 <h4 className="nameVote">
-                  <input type="checkbox"></input>
+                  <input type="checkbox" value={location.id} onClick={e => handleCheckBox(e)}></input>
                   {location.location}
                 </h4>
                 <h5 className="quantilyVote">{location.num_vote}</h5>

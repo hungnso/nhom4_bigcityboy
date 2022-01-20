@@ -10,11 +10,11 @@ function LoginSocial({ setIsAuth }) {
   const isUser = localStorage.getItem('isAuth')
   // console.log(isUser)
 
-  // useEffect(() => {
-  //   if (isUser) {
-  //     navigate('/home')
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (isUser) {
+      navigate('/home')
+    }
+  }, [])
 
   const handleLogin = async provider => {
     const { additionalUserInfo, user } = await auth.signInWithPopup(provider)
@@ -25,6 +25,7 @@ function LoginSocial({ setIsAuth }) {
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
+        uid: user.uid,
         providerId: additionalUserInfo.providerId
       })
       navigate('/home')
