@@ -1,7 +1,7 @@
-import React from "react";
-import "./styles.css";
+import React from 'react'
+import './styles.css'
 
-const InputForm = ({ type, id, placeholder, value }) => {
+const InputForm = ({ type, id, placeholder, value, disabled, name, onChange, onBlur, onFocus }) => {
   return (
     <div>
       <input
@@ -10,9 +10,14 @@ const InputForm = ({ type, id, placeholder, value }) => {
         id={id}
         placeholder={placeholder}
         value={value}
+        disabled={disabled}
+        name={name}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
       />
     </div>
-  );
-};
+  )
+}
 
-export default InputForm;
+export default InputForm

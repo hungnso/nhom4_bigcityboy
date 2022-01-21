@@ -1,40 +1,37 @@
-import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { auth } from "../firebase/config";
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { auth } from '../firebase/config'
 
-export const AuthContext = React.createContext();
+export const AuthContext = React.createContext()
 
 export default function AuthProvider({ children }) {
-  const [user, setUser] = React.useState({});
-  const history = useHistory();
+  const [user, setUser] = React.useState({})
+  const navigate = useNavigate()
   // const [loading, setIsLoading] = useState(true);
 
   React.useEffect(() => {
-    const unsubscibed = auth.onAuthStateChanged((user) => {
-      console.log(user);
+    const unsubscibed = auth.onAuthStateChanged(user => {
+      localStorage.setItem('uid', user.uid)
       if (user) {
-        const { displayName, email, uid, photoURL } = user;
+        const { displayName, email, uid, photoURL } = user
         setUser({
           displayName,
           email,
           uid,
-          photoURL,
-        });
-        history.push("/");
-        return;
+          photoURL
+        })
+        return
       }
 
       // reset user info
-      setUser({});
-      history.push("/login");
-    });
+      setUser({})
+      navigate('/login')
+    })
 
     // clean function
     return () => {
-      unsubscibed();
-    };
-  }, [history]);
-  return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
-  );
+      unsubscibed()
+    }
+  }, [navigate])
+  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
 }

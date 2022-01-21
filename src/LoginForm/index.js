@@ -1,45 +1,86 @@
-import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
-import InputForm from "../components/InputForm";
-import { AuthContext } from "../Context/AuthProvider";
-import { auth } from "../firebase/config";
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
+import { Container, Row, Col, Button } from 'reactstrap'
+import InputForm from '../components/InputForm'
+import { AuthContext } from '../Context/AuthProvider'
+import { auth, db } from '../firebase/config'
+import { addDocument } from '../firebase/services'
+import Mapbox from '../MapAddAddress/mapbox'
+import ModalForm from '../components/ModalForm'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { AppContext } from '../Context/AppProvider'
+import LogOut from '../components/LogOut'
 
 export default function LoginForm() {
-  const history = useHistory();
-  const handleCLick = (e) => {
-    e.preventDefault();
-    history.push("/create");
-  };
-  const {
-    user: { displayName },
-  } = useContext(AuthContext);
+  let navigate = useNavigate()
+  const { curraddName, selectedRoomId } = useContext(AppContext)
+  const [nickname, setNickName] = React.useState('')
+  const { roomClient } = useContext(AppContext)
 
-  // if (!displayName) {
-  //   return <Redirect to="/login" />;
-  // }
+  // React.useEffect(() => {
+  //   db.collection('users').onSnapshot(snapshot => {
+  //     const data = snapshot.docs.map(doc => ({
+  //       ...doc.data(),
+  //       id: doc.id
+  //     }))
+  //     console.log({ data, snapshot, docs: snapshot.docs })
+  //   })
+  // }, [])
+
+  const [show, setShow] = useState(false)
+
+  const handleCLick = e => {
+    e.preventDefault()
+    // navigate('/create')
+  }
+
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+  const {
+    user: { displayName, uid }
+  } = useContext(AuthContext)
+
+  const onClose = () => {
+    setShow(false)
+  }
+  const formik = useFormik({
+    initialValues: {
+      full_name: nickname
+    },
+    validationSchema: Yup.object({
+      full_name: Yup.string()
+        .min(2, 'Tên Phải Chứa Ít Nhất 2 Ký Tự')
+        .max(30, 'Tên Chứa Tối Đa 30 Ký Tự')
+        .required('Tên Không Được Để Trống!')
+    }),
+    onSubmit: values => {
+      console.log(values)
+      setNickName(values.full_name)
+      console.log(curraddName)
+      addDocument('user_room', {
+        currentLocation: curraddName,
+        nickname: values.full_name,
+        user_id: uid
+      })
+      console.log(selectedRoomId)
+      selectedRoomId ? navigate(`/room-vote/${selectedRoomId}`) : navigate('/create')
+    }
+  })
 
   return (
     <div className="login_form">
       <div className="krqetT"></div>
       <div className="ifKAln"></div>
+      <LogOut />
       <Container>
-        <div className="logout">
-          <button
-            onClick={() => {
-              auth.signOut();
-            }}
-            className="btn btn-primary logout_btn "
-          >
-            Logout
-          </button>
-        </div>
         <h1
           style={{
-            color: "white",
-            textTransform: "uppercase",
-            textAlign: "center",
+            color: 'white',
+            textTransform: 'uppercase',
+            textAlign: 'center'
           }}
         >
           Chào mừng {displayName} đến với App Cùng Đi Chơi
@@ -47,32 +88,66 @@ export default function LoginForm() {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <div className="login_wrapper">
-              <div className="formsix-pos">
-                <div className="form-group i-email">
-                  <InputForm type="text" id="Text1" placeholder="Ho va Ten *" />
+            <form onSubmit={formik.handleSubmit}>
+              <div className="login_wrapper">
+                <div className="formsix-pos">
+                  <div className="form-group">
+                    <InputForm
+                      type="text"
+                      id="Text1"
+                      placeholder={formik.values.full_name ? formik.values.full_name : 'Tên Người Dùng *'}
+                      name="full_name"
+                      defaultValue={formik.values.full_name}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.errors.full_name && formik.touched.full_name && (
+                      <p className="msg_err">{formik.errors.full_name}</p>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="formsix-e">
-                <div className="form-group i-password">
-                  <InputForm type="text" id="Text2" placeholder="Dia chi *" />
+                <div className="formsix-e">
+                  <div className="form-group">
+                    <div className="address_vote">
+                      <div className="">{curraddName}</div>
+                      <div
+                        className="btn_address"
+                        onClick={e => {
+                          e.preventDefault()
+                          setShow(true)
+                        }}
+                      >
+                        {curraddName ? 'Sửa địa chỉ' : 'Nhập địa chỉ của bạn'}
+                      </div>
+                      <ModalForm
+                        show={show}
+                        onHide={() => setShow(false)}
+                        ModalTile={''}
+                        ModalChildren={<Mapbox onClose={onClose} />}
+                        size="xl"
+                      />
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="login_btn_wrapper">
-                <button
-                  type="submit"
-                  onClick={(e) => handleCLick(e)}
-                  className="btn btn-primary login_btn"
-                >
-                  Submit
-                </button>
+                <div className="login_btn_wrapper">
+                  <button type="submit" onClick={e => handleGoBack(e)} className="btn login_btn">
+                    Trở Về
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn login_btn"
+                    disabled={!(formik.isValid && formik.dirty && curraddName.length != 0)}
+                  >
+                    Tiếp Theo
+                  </button>
+                </div>
               </div>
-            </div>
+            </form>
           </Col>
           <Col lg={3}></Col>
         </Row>
       </Container>
     </div>
-  );
+  )
 }
