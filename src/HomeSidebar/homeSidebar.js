@@ -13,12 +13,13 @@ import MapboxLocationVote from '../MapAddAddress/mapboxLocationVote'
 
 const HomeSidebar = ({ setCurrRoom }) => {
   const navigate = useNavigate()
-  const { selectedRoomHost, selectedRoomClient, locationVote, setLocationVote, selectedRoomId, setList } =
+  const { selectedRoomHost, locationVote, setLocationVote, selectedRoomId, setList, currLocation, nickname } =
     React.useContext(AppContext)
   const params = useParams()
   const {
     user: { uid }
   } = React.useContext(AuthContext)
+  console.log(currLocation)
 
   const [show, setShow] = useState(false)
 
@@ -50,6 +51,15 @@ const HomeSidebar = ({ setCurrRoom }) => {
   //     compareValue: selectedRoomClient.id
   //   }
   // }, [selectedRoomClient.id])
+
+  React.useMemo(() => {
+    addDocument('user_room', {
+      currentLocation: currLocation,
+      nickname: nickname,
+      user_id: uid,
+      room_id: params.id
+    })
+  }, [params.id, uid, nickname, currLocation])
   React.useEffect(() => {
     const { id } = params
     db.collection('rooms')
@@ -95,20 +105,15 @@ const HomeSidebar = ({ setCurrRoom }) => {
   // }, [])
 
   const arrLocationVoteHost = useFirestore('locations', conditionVote)
-  React.useMemo(() => {
-    let listLocationVote = [...arrLocationVoteHost]
-    setList(listLocationVote)
-    setListAdd(listLocationVote)
-  }, [arrLocationVoteHost, setList])
 
-  React.useMemo(() => {
+  React.useEffect(() => {
     let listLocationVote = [...arrLocationVoteHost]
     setList(listLocationVote)
     setListAdd(listLocationVote)
   }, [arrLocationVoteHost, setList])
 
   const handleGoBack = () => {
-    navigate(-1)
+    navigate('/')
   }
   /// Lấy ra danh sách người dùng có trong phòng
   // console.log(valueRoom)
@@ -123,7 +128,9 @@ const HomeSidebar = ({ setCurrRoom }) => {
   const memberList = useFirestore('users', usersCondition)
   // console.log(memberList)
 
-  setCurrRoom(valueRoom)
+  React.useEffect(() => {
+    setCurrRoom(valueRoom)
+  }, [setCurrRoom, valueRoom])
   const handleEndVote = e => {
     e.preventDefault()
     if (!selectedRoomHost.title) {
@@ -168,7 +175,7 @@ const HomeSidebar = ({ setCurrRoom }) => {
           }
         })
       })
-      .then(() => { })
+      .then(() => {})
       .catch(error => {
         console.log('Transaction failed: ', error)
       })
@@ -195,7 +202,7 @@ const HomeSidebar = ({ setCurrRoom }) => {
                     type="checkbox"
                     value={location.id}
                     onChange={e => handleCheckBox(e)}
-                  // checked={location => (location.vote_users.includes(uid) ? true : false)}
+                    // checked={location => (location.vote_users.includes(uid) ? true : false)}
                   ></input>
                   {location.location}
                 </h4>

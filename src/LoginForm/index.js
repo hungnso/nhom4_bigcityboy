@@ -15,19 +15,8 @@ import LogOut from '../components/LogOut'
 
 export default function LoginForm() {
   let navigate = useNavigate()
-  const { curraddName, selectedRoomId } = useContext(AppContext)
-  const [nickname, setNickName] = React.useState('')
+  const { curraddName, selectedRoomId, setCurrLocation, nickname, setNickName } = useContext(AppContext)
   const { roomClient } = useContext(AppContext)
-
-  // React.useEffect(() => {
-  //   db.collection('users').onSnapshot(snapshot => {
-  //     const data = snapshot.docs.map(doc => ({
-  //       ...doc.data(),
-  //       id: doc.id
-  //     }))
-  //     console.log({ data, snapshot, docs: snapshot.docs })
-  //   })
-  // }, [])
 
   const [show, setShow] = useState(false)
 
@@ -60,13 +49,11 @@ export default function LoginForm() {
       console.log(values)
       setNickName(values.full_name)
       console.log(curraddName)
-      addDocument('user_room', {
-        currentLocation: curraddName,
-        nickname: values.full_name,
-        user_id: uid
-      })
+      setCurrLocation(curraddName)
+
       console.log(selectedRoomId)
       selectedRoomId ? navigate(`/room-vote/${selectedRoomId}`) : navigate('/create')
+      // setCurrAddName('')
     }
   })
 

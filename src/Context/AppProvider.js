@@ -11,6 +11,8 @@ export default function AppProvider({ children }) {
   const [selectedRoomId, setSelectedRoomId] = useState('')
   const [locationVote, setLocationVote] = useState([])
   const [list, setList] = useState([])
+  const [currLocation, setCurrLocation] = useState('')
+  const [nickname, setNickName] = React.useState('')
 
   const { user } = React.useContext(AuthContext)
 
@@ -46,19 +48,9 @@ export default function AppProvider({ children }) {
     () => roomClient.find(room => room.id === selectedRoomId) || {},
     [roomClient, selectedRoomId]
   )
-  // console.log(selectedRoomClient)
-
-  /// Đây là lấy ra địa chỉ hiện tại của người dùng lúc đã nhập khi vào 1 phòng nào đó
-
-  // const curAddCondition = React.useMemo(() => {
-  //   return {
-  //     fieldName: 'user_id',
-  //     operator: '==',
-  //     compareValue: selectedRoomHost.user_id
-  //   }
-  // }, [selectedRoomHost])
-  // const curAdd = useFirestore('user_room', curAddCondition)
-  // console.log(curAdd)
+  const clearState = () => {
+    setSelectedRoomId('')
+  }
 
   return (
     <AppContext.Provider
@@ -74,7 +66,12 @@ export default function AppProvider({ children }) {
         locationVote,
         setLocationVote,
         list,
-        setList
+        setList,
+        clearState,
+        currLocation,
+        setCurrLocation,
+        nickname,
+        setNickName
       }}
     >
       {children}

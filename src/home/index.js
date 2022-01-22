@@ -20,6 +20,12 @@ function Home() {
   const [showVote, setShowVote] = useState(false)
   const { roomClient, roomHost, setSelectedRoomId, selectedRoomHost, selectedRoomClient } = useContext(AppContext)
 
+  // const listRoomClient = roomClient.map(room => {
+  //   room.member.filter(value => value !== uid)
+  // })
+
+  // console.log(listRoomClient.length)
+
   const navigate = useNavigate()
   const handleCLick = e => {
     e.preventDefault()
@@ -205,9 +211,9 @@ function Home() {
                       ModalTile={'Cuộc Bình Chọn Đã Tham Gia!!!'}
                       ModalChildren={
                         <div>
-                          {roomClient.map(room => (
-                            <button key={room.id} className="btn_address" onClick={() => handleJoinRoom(room.id)}>
-                              {room.title}
+                          {roomClient?.map(room => (
+                            <button key={room?.id} className="btn_address" onClick={() => handleJoinRoom(room?.id)}>
+                              {room?.title}
                             </button>
                           ))}
                         </div>

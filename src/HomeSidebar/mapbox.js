@@ -19,13 +19,14 @@ function Mapbox({ member }) {
 
   useEffect(() => {
     let newS = []
-    list.map(address => {
-      axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address.location}.json?access_token=${token}`)
+    list.map((address, index) => {
+      axios
+        .get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${address.location}.json?access_token=${token}`)
         .then(function (response) {
           newS.push({
             ...address,
             longitude: response.data.features[0].center[0],
-            latitude: response.data.features[0].center[1],
+            latitude: response.data.features[0].center[1]
           })
         })
         .catch(function (error) {
@@ -58,7 +59,7 @@ function Mapbox({ member }) {
         {...viewport}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxApiAccessToken="pk.eyJ1IjoidHJhbm5oYW4xMiIsImEiOiJja3k5cnd6M2QwOWN4MnZxbWJianJvNTgxIn0.ubgU2PdV-ahm1liOZLyjMw"
-        onViewportChange={(viewport) => setViewport(viewport)}
+        onViewportChange={viewport => setViewport(viewport)}
       >
         {newAddress.map(val => {
           return (

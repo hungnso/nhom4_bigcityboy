@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Container, Row, Col, Button } from 'reactstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import InputForm from '../components/InputForm'
@@ -20,28 +20,13 @@ function GroupForm() {
   const {
     user: { uid }
   } = React.useContext(AuthContext)
-  const { locationVote } = React.useContext(AppContext)
+  const { locationVote, setLocationVote, setCurrAddName, setNickName, nickname, currLocation } =
+    React.useContext(AppContext)
   const navigate = useNavigate()
+
   const [show, setShow] = useState(false)
   const [shows, setShows] = useState(false)
 
-  // const roomsCondition = React.useMemo(() => {
-  //   return {
-  //     fieldName: 'members',
-  //     operator: 'array-contains',
-  //     compareValue: user.uid
-  //   }
-  // }, [user.uid])
-
-  // const rooms = useFirestore('rooms', roomsCondition)
-  // console.log(rooms)
-  // const { rooms } = React.useContext(AppContext)
-  // console.log(rooms)
-
-  const handleCLick = e => {
-    e.preventDefault()
-    navigate('/room-vote')
-  }
   const handleGoBack = () => {
     navigate(-1)
   }
@@ -72,10 +57,25 @@ function GroupForm() {
           description: values.content,
           max_location: 5,
           vote_status: true,
-          member: [uid],
+          member: [],
           user_id: uid
         })
-        navigate('/')
+        db.collection('rooms')
+          .orderBy('createdAt')
+          .where('user_id', '==', uid)
+          .onSnapshot(snapshot => {
+            const documents = snapshot.docs.map(doc => ({
+              ...doc.data(),
+              id: doc.id
+            }))
+            const newRoom = documents[documents.length - 1]
+
+            navigate(`/room-vote/${newRoom.id}`)
+          })
+
+        // setLocationVote([])
+        // setCurrAddName('')
+        // setNickName('')
       } else {
         alert('bạn cần nhập địa chỉ')
       }
